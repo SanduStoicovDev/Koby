@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "880398959281",
+    "project_id": "koby-85e44",
+    "storage_bucket": "koby-85e44.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:880398959281:android:bdb4e0b52e4fa959eb1890",
+        "android_client_info": {
+          "package_name": "com.unimib.koby"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "880398959281-8npuvc022ki4nktqrirrtsge70vc3ul7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.unimib.koby",
+            "certificate_hash": "0ef5484087e74384b16a023a956e152cfdebcc39"
+          }
+        },
+        {
+          "client_id": "880398959281-hqvs4clpv0vopipsu4b6kcjad2g4okus.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB_0FailJh0s7jZGvKI7PvDshhWY2fBc7M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "880398959281-hqvs4clpv0vopipsu4b6kcjad2g4okus.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
