@@ -3,4 +3,10 @@
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
+    <string name="app_logo">logo</string>
+    <string name="benvenuto">Benvenuto in Koby</string>
+    <string name="hintEmail">Indirizzo Email</string>
+    <string name="hintPassword">Password</string>
+    <string name="loginButton">Accedi</string>
+    <string name="loginNoAccount">Non hai un account? Registrati</string>
 </resources>
