@@ -1,4 +1,4 @@
-package com.unimib.koby;
+package com.unimib.koby.ui;
 
 import android.os.Bundle;
 
@@ -7,11 +7,11 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import com.unimib.koby.R;
 import com.unimib.koby.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {

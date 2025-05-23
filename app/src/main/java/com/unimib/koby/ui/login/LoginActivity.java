@@ -14,10 +14,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
-import com.unimib.koby.MainActivity;
+import com.unimib.koby.ui.MainActivity;
 import com.unimib.koby.R;
-
-import android.app.Activity;
 
 public class LoginActivity extends AppCompatActivity {
 
