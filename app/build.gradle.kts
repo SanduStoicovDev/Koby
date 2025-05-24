@@ -5,12 +5,12 @@ plugins {
 
 android {
     namespace = "com.unimib.koby"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.unimib.koby"
         minSdk = 28
-        targetSdk = 34
+        targetSdk = 35
         versionCode = 1
         versionName = "1.0"
 
@@ -29,6 +29,8 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
+
+        isCoreLibraryDesugaringEnabled = true
     }
     buildFeatures {
         viewBinding = true
@@ -36,21 +38,51 @@ android {
 }
 
 dependencies {
-
+    //Design UI
     implementation(libs.appcompat)
+    implementation (libs.cardview)
+    implementation (libs.recyclerview)
     implementation(libs.material)
     implementation(libs.constraintlayout)
+
+    //Navigation Lifecycle
     implementation(libs.lifecycle.livedata.ktx)
     implementation(libs.lifecycle.viewmodel.ktx)
+    implementation (libs.navigation.fragment.ktx)
+    implementation (libs.navigation.ui.ktx)
     implementation(libs.navigation.fragment)
     implementation(libs.navigation.ui)
+
+    //Firebase
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.database)
     implementation(libs.google.firebase.auth)
+    implementation(libs.play.services.auth) //login google
+    implementation(libs.play.services.base)
+    implementation(libs.firebase.firestore)
+    coreLibraryDesugaring(libs.desugar.jdk.libs)
+
+    // Retrofit & Convertitore GSON
+    implementation (libs.retrofit)
+    implementation (libs.converter.gson)
+
+    // Validator
+    implementation(libs.commons.validator)
+    implementation(libs.security.crypto.v110alpha07)
+
+    // OkHttp & Logging Interceptor per OkHttp
+    implementation (libs.okhttp)
+    implementation (libs.logging.interceptor)
+
+    // Room - Database
+    implementation(libs.room.runtime)
+    annotationProcessor(libs.room.compiler)
+
+    // Picasso Image & Location
+    implementation (libs.picasso)
+
+    //Testing JUnit Espresso
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
-
-    //noinspection BomWithoutPlatform
-    implementation(libs.firebase.bom)
-    implementation(libs.firebase.database)
-
 }
