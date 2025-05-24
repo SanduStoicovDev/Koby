@@ -9,4 +9,14 @@
     <string name="hintPassword">Password</string>
     <string name="loginButton">Accedi</string>
     <string name="loginNoAccount">Non hai un account? Registrati</string>
+    <string name="error_login_password_message">Credenziali Errate</string>
+    <string name="error_login_user_message">Invalid User Error</string>
+    <string name="unexpected_error">Unexcpected error</string>
+    <string name="error_password">Errore Password</string>
+    <string name="error_email">Errore Email</string>
+    <string name="error_no_google_account_found_message">Nessun account Google collegato</string>
+    <string name="check_login_data_message">check login data message</string>
+    <string name="login_success">login Success</string>
+    <string name="title_login">login</string>
+    <string name="title_registration">registration</string>
 </resources>
