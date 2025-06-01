@@ -1,4 +1,4 @@
-package com.unimib.koby.data.source.remote.user;
+package com.unimib.koby.data.source.user;
 
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.Tasks;
