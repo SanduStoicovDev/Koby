@@ -2,26 +2,20 @@ package com.unimib.koby.util;
 
 import android.app.Application;
 
-import com.google.firebase.auth.FirebaseAuth;
 import com.unimib.koby.data.repository.user.IUserRepository;
 import com.unimib.koby.data.repository.user.UserRepository;
 import com.unimib.koby.data.source.user.BaseUserAuthenticationRemoteDataSource;
 import com.unimib.koby.data.source.user.FirebaseAuthenticationRemoteDataSource;
 import com.unimib.koby.data.source.user.BaseUserDataRemoteDataSource;
-import com.unimib.koby.data.source.remote.user.FirebaseUserDataRemoteDataSource;
+import com.unimib.koby.data.source.user.FirebaseUserDataRemoteDataSource;
 
-/**
- * Service Locator che costruisce e fornisce i singleton di cui ha bisogno
- * l’applicazione.  Ora compatibile con il costruttore a **tre argomenti** di
- * {@link UserRepository} (AuthDS, UserDS, FirebaseAuth).
- */
 public class ServiceLocator {
 
     private static ServiceLocator instance;
 
     private IUserRepository userRepository;
     private BaseUserAuthenticationRemoteDataSource authRemoteDS;
-    private BaseUserDataRemoteDataSource         userRemoteDS;
+    private BaseUserDataRemoteDataSource userRemoteDS;
 
     private ServiceLocator() {}
 
@@ -34,8 +28,7 @@ public class ServiceLocator {
         if (userRepository == null) {
             if (authRemoteDS == null) authRemoteDS = new FirebaseAuthenticationRemoteDataSource();
             if (userRemoteDS == null) userRemoteDS = new FirebaseUserDataRemoteDataSource();
-            // Costruttore a 3 argomenti richiesto dalla tua classe UserRepository
-            userRepository = new UserRepository(authRemoteDS, userRemoteDS, FirebaseAuth.getInstance());
+            userRepository = new UserRepository(authRemoteDS, userRemoteDS);
         }
         return userRepository;
     }
