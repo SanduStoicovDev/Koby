@@ -20,8 +20,10 @@ import com.unimib.koby.model.Result;
 import com.unimib.koby.util.ServiceLocator;
 
 /**
- * Schermata di registrazione (v2) – sincronizzata con gli ID presenti
- * in fragment_register.xml.
+ * Schermata di registrazione
+ * - Valida i campi
+ * - Interagisce con {@link UserViewModel}
+ * - Naviga al Login quando la registrazione va a buon fine
  */
 public class RegisterFragment extends Fragment {
 
@@ -40,18 +42,18 @@ public class RegisterFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         // --- View binding --------------------------------------------------
-        nameLayout       = view.findViewById(R.id.nameLayout);
-        emailLayout      = view.findViewById(R.id.emailLayout);
-        pwdLayout        = view.findViewById(R.id.passwordLayout);
-        confirmPwdLayout = view.findViewById(R.id.confirmPasswordLayout);
+        nameLayout        = view.findViewById(R.id.nameLayout);
+        emailLayout       = view.findViewById(R.id.emailLayout);
+        pwdLayout         = view.findViewById(R.id.passwordLayout);
+        confirmPwdLayout  = view.findViewById(R.id.confirmPasswordLayout);
 
-        nameEdit         = view.findViewById(R.id.editName);
-        emailEdit        = view.findViewById(R.id.editEmail);
-        pwdEdit          = view.findViewById(R.id.editPassword);
-        confirmPwdEdit   = view.findViewById(R.id.editConfirmPassword);
+        nameEdit          = view.findViewById(R.id.editName);
+        emailEdit         = view.findViewById(R.id.editEmail);
+        pwdEdit           = view.findViewById(R.id.editPassword);
+        confirmPwdEdit    = view.findViewById(R.id.editConfirmPassword);
 
-        View registerBtn = view.findViewById(R.id.buttonRegister);
-        View loginLink   = view.findViewById(R.id.buttonGoToLogin);
+        View registerBtn  = view.findViewById(R.id.buttonRegister);
+        View loginLink    = view.findViewById(R.id.buttonGoToLogin);
 
         // --- ViewModel -----------------------------------------------------
         viewModel = new ViewModelProvider(
@@ -69,10 +71,10 @@ public class RegisterFragment extends Fragment {
     }
 
     private void attemptRegister() {
-        String name     = getString(nameEdit);
-        String email    = getString(emailEdit);
-        String password = getString(pwdEdit);
-        String confirm  = getString(confirmPwdEdit);
+        String name      = getText(nameEdit);
+        String email     = getText(emailEdit);
+        String password  = getText(pwdEdit);
+        String confirm   = getText(confirmPwdEdit);
 
         boolean valid = true;
         if (TextUtils.isEmpty(name)) {
@@ -100,14 +102,14 @@ public class RegisterFragment extends Fragment {
         viewModel.register(name, email, password).observe(getViewLifecycleOwner(), result -> {
             if (result.isSuccess()) {
                 Toast.makeText(requireContext(), R.string.registration_success, Toast.LENGTH_SHORT).show();
-                Navigation.findNavController(requireView()).navigateUp();
+                Navigation.findNavController(requireView()).navigateUp(); // Torna al Login
             } else {
                 Toast.makeText(requireContext(), ((Result.Error) result).getMessage(), Toast.LENGTH_LONG).show();
             }
         });
     }
 
-    private String getString(TextInputEditText edit) {
+    private String getText(TextInputEditText edit) {
         return edit.getText() != null ? edit.getText().toString().trim() : "";
     }
 }
