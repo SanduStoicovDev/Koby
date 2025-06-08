@@ -24,6 +24,7 @@ navigationUi = "2.8.9"
 firebaseDatabase = "21.0.0"
 navigationUiKtx = "2.9.0"
 okhttp = "4.12.0"
+pdfboxAndroid = "2.0.27.0)"
 picasso = "2.71828"
 playServicesAuth = "21.3.0"
 playServicesAuthVersion = "20.7.0"
@@ -38,6 +39,7 @@ roomRuntime = "2.7.1"
 securityCrypto = "1.0.0"
 securityCryptoVersion = "1.1.0-alpha06"
 firebaseFirestore = "25.1.4"
+firebaseStorage = "21.0.2"
 
 [libraries]
 cardview = { module = "androidx.cardview:cardview", version.ref = "cardview" }
@@ -65,6 +67,7 @@ navigation-ui = { group = "androidx.navigation", name = "navigation-ui", version
 firebase-database = { group = "com.google.firebase", name = "firebase-database", version.ref = "firebaseDatabase" }
 navigation-ui-ktx = { module = "androidx.navigation:navigation-ui-ktx", version.ref = "navigationUiKtx" }
 okhttp = { module = "com.squareup.okhttp3:okhttp", version.ref = "okhttp" }
+pdfbox-android = { module = "org.apache.pdfbox:pdfbox-android", version.ref = "pdfboxAndroid" }
 picasso = { module = "com.squareup.picasso:picasso", version.ref = "picasso" }
 play-services-auth = { module = "com.google.android.gms:play-services-auth", version.ref = "playServicesAuth" }
 play-services-auth-v2070 = { module = "com.google.android.gms:play-services-auth", version.ref = "playServicesAuthVersion" }
@@ -80,6 +83,7 @@ security-crypto = { group = "androidx.security", name = "security-crypto", versi
 security-crypto-v110alpha06 = { module = "androidx.security:security-crypto", version.ref = "securityCryptoVersion" }
 security-crypto-v110alpha07 = { module = "androidx.security:security-crypto", version.ref = "androidxSecurityCrypto" }
 firebase-firestore = { group = "com.google.firebase", name = "firebase-firestore", version.ref = "firebaseFirestore" }
+firebase-storage = { group = "com.google.firebase", name = "firebase-storage", version.ref = "firebaseStorage" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

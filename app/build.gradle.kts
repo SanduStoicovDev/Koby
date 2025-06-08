@@ -15,6 +15,7 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
     }
 
     buildTypes {
@@ -38,6 +39,9 @@ android {
 }
 
 dependencies {
+
+
+
     //Design UI
     implementation(libs.appcompat)
     implementation (libs.cardview)
@@ -60,9 +64,10 @@ dependencies {
     implementation(libs.play.services.auth) //login google
     implementation(libs.play.services.base)
     implementation(libs.firebase.firestore)
+    implementation(libs.firebase.storage)
     coreLibraryDesugaring(libs.desugar.jdk.libs)
 
-    // Retrofit & Convertitore GSON
+    // Retrofit & Converter GSON
     implementation (libs.retrofit)
     implementation (libs.converter.gson)
 
@@ -78,11 +83,13 @@ dependencies {
     implementation(libs.room.runtime)
     annotationProcessor(libs.room.compiler)
 
-    // Picasso Image & Location
+    // Picasso Image & PDF Parser
     implementation (libs.picasso)
+    implementation(libs.pdfbox.android)
 
     //Testing JUnit Espresso
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
+
 }
