@@ -70,7 +70,7 @@ public class UserRepository implements IUserRepository {
         MutableLiveData<Result> live = new MutableLiveData<>();
         authRemote.logout();
         cachedUser = null;
-        live.setValue(new Result.UserResponseSuccess(null));
+        live.setValue(new Result.Success<>(cachedUser));
         return live;
     }
 
@@ -93,7 +93,7 @@ public class UserRepository implements IUserRepository {
         if (task.isSuccessful()) {
             FirebaseUser fUser = authRemote.getCurrentUser();
             cachedUser = new User(fUser.getDisplayName(), fUser.getEmail(), null);
-            live.setValue(new Result.UserResponseSuccess(cachedUser));
+            live.setValue(new Result.Success<>(cachedUser));
         } else {
             live.setValue(new Result.Error(task.getException() != null ?
                     task.getException().getMessage() : "Authentication error"));
