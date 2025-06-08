@@ -9,7 +9,11 @@
         android:id="@+id/navigation_home"
         android:name="com.unimib.koby.ui.home.HomeFragment"
         android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_home_to_uploadSpaceFragment"
+            app:destination="@id/uploadSpaceFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_dashboard"
@@ -22,4 +26,8 @@
         android:name="com.unimib.koby.ui.notifications.NotificationsFragment"
         android:label="@string/title_notifications"
         tools:layout="@layout/fragment_notifications" />
+    <fragment
+        android:id="@+id/uploadSpaceFragment"
+        android:name="com.unimib.koby.ui.spacestudy.UploadSpaceFragment"
+        android:label="UploadSpaceFragment" />
 </navigation>

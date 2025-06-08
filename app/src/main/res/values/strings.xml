@@ -22,4 +22,10 @@
     <string name="error_name">nome vuoto</string>
     <string name="error_password_mismatch">conferma password errata</string>
     <string name="registration_success">Registrazione avvenuta con successo</string>
+    <string name="label_pick_pdf">Seleziona PDF</string>
+    <string name="label_upload">Carica PDF</string>
+    <string name="label_no_space">No spazio</string>
+    <string name="label_add_space">Aggiungi SpaceStudy</string>
+    <string name="label_add_space_long">Crea un nuovo Spazio Studio</string>
+    <string name="menu_home">Home</string>
 </resources>
