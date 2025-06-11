@@ -14,6 +14,8 @@ import androidx.navigation.ui.NavigationUI;
 import com.unimib.koby.R;
 import com.unimib.koby.databinding.ActivityMainBinding;
 
+import com.tom_roush.pdfbox.android.PDFBoxResourceLoader;
+
 public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
@@ -21,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        PDFBoxResourceLoader.init(getApplicationContext());
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
