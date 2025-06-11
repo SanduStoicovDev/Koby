@@ -1,11 +1,15 @@
 [versions]
+activityKtx = "1.10.1"
 agp = "8.7.2"
 androidxSecurityCrypto = "1.1.0-alpha07"
 cardview = "1.0.0"
 commonsValidator = "1.7"
 converterGson = "2.9.0"
 desugar_jdk_libs = "2.1.5"
+firebaseAuthVersion = "23.0.0"
 firebaseBom = "33.12.0"
+firebaseFirestoreVersion = "25.0.0"
+fragmentKtx = "1.8.8"
 junit = "4.13.2"
 junitVersion = "1.2.1"
 espressoCore = "3.6.1"
@@ -25,6 +29,7 @@ firebaseDatabase = "21.0.0"
 navigationUiKtx = "2.9.0"
 okhttp = "4.12.0"
 pdfboxAndroid = "2.0.27.0)"
+pdfboxAndroidVersion = "1.8.10.3"
 picasso = "2.71828"
 playServicesAuth = "21.3.0"
 playServicesAuthVersion = "20.7.0"
@@ -40,15 +45,21 @@ securityCrypto = "1.0.0"
 securityCryptoVersion = "1.1.0-alpha06"
 firebaseFirestore = "25.1.4"
 firebaseStorage = "21.0.2"
+tomRoushPdfboxAndroid = "2.0.27.0"
 
 [libraries]
+activity-ktx = { module = "androidx.activity:activity-ktx", version.ref = "activityKtx" }
+barteksc-pdfbox-android = { module = "com.github.barteksc:pdfbox-android", version.ref = "pdfboxAndroidVersion" }
 cardview = { module = "androidx.cardview:cardview", version.ref = "cardview" }
 commons-validator = { module = "commons-validator:commons-validator", version.ref = "commonsValidator" }
 converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "converterGson" }
 desugar_jdk_libs = { module = "com.android.tools:desugar_jdk_libs", version.ref = "desugar_jdk_libs" }
 firebase-analytics = { module = "com.google.firebase:firebase-analytics" }
 firebase-auth = { module = "com.google.firebase:firebase-auth" }
+firebase-auth-v2300 = { module = "com.google.firebase:firebase-auth", version.ref = "firebaseAuthVersion" }
 firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebaseBom" }
+firebase-firestore-v2500 = { module = "com.google.firebase:firebase-firestore", version.ref = "firebaseFirestoreVersion" }
+fragment-ktx = { module = "androidx.fragment:fragment-ktx", version.ref = "fragmentKtx" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 ext-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
@@ -84,6 +95,7 @@ security-crypto-v110alpha06 = { module = "androidx.security:security-crypto", ve
 security-crypto-v110alpha07 = { module = "androidx.security:security-crypto", version.ref = "androidxSecurityCrypto" }
 firebase-firestore = { group = "com.google.firebase", name = "firebase-firestore", version.ref = "firebaseFirestore" }
 firebase-storage = { group = "com.google.firebase", name = "firebase-storage", version.ref = "firebaseStorage" }
+tom-roush-pdfbox-android = { module = "com.tom-roush:pdfbox-android", version.ref = "tomRoushPdfboxAndroid" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
