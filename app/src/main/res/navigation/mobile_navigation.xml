@@ -11,8 +11,8 @@
         android:label="@string/title_home"
         tools:layout="@layout/fragment_home" >
         <action
-            android:id="@+id/action_home_to_uploadSpaceFragment"
-            app:destination="@id/uploadSpaceFragment" />
+            android:id="@+id/action_home_to_newChat"
+            app:destination="@id/fragment_new_chat" />
     </fragment>
 
     <fragment
@@ -22,12 +22,14 @@
         tools:layout="@layout/fragment_dashboard" />
 
     <fragment
+        android:id="@+id/fragment_new_chat"
+        android:name="com.unimib.koby.ui.newchat.NewChatFragment"
+        android:label="@string/title_newChat"
+        tools:layout="@layout/fragment_dashboard" />
+
+    <fragment
         android:id="@+id/navigation_notifications"
         android:name="com.unimib.koby.ui.notifications.NotificationsFragment"
         android:label="@string/title_notifications"
         tools:layout="@layout/fragment_notifications" />
-    <fragment
-        android:id="@+id/uploadSpaceFragment"
-        android:name="com.unimib.koby.ui.spacestudy.UploadSpaceFragment"
-        android:label="UploadSpaceFragment" />
 </navigation>
