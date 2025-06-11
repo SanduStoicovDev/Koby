@@ -1,12 +1,13 @@
 package com.unimib.koby.model;
 
 public abstract class Result {
-    public boolean isSuccess() { return this instanceof UserResponseSuccess; }
 
-    public static final class UserResponseSuccess extends Result {
-        private final User data;
-        public UserResponseSuccess(User data) { this.data = data; }
-        public User getData() { return data; }
+    public boolean isSuccess() { return this instanceof Success; }
+
+    public static final class Success<T> extends Result {
+        private final T data;
+        public Success(T data) { this.data = data; }
+        public T getData() { return data; }
     }
 
     public static final class Error extends Result {
