@@ -28,4 +28,8 @@
     <string name="label_add_space">Aggiungi SpaceStudy</string>
     <string name="label_add_space_long">Crea un nuovo Spazio Studio</string>
     <string name="menu_home">Home</string>
+    <string name="new_chat_title">Titolo Chat</string>
+    <string name="select_pdf">Seleziona PDF</string>
+    <string name="title_newChat">Nuova Chat</string>
+    <string name="new_chat">Nuova Chat</string>
 </resources>
