@@ -9,6 +9,7 @@ import com.unimib.koby.data.openai.OpenAIService;
 
 import java.io.IOException;
 import java.util.Collections;
+import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -25,8 +26,10 @@ public class OpenAIRepository {
 
         /* -------- OkHttp con due interceptor -------- */
         OkHttpClient client = new OkHttpClient.Builder()
-
-                // 1) interceptor custom: aggiunge Authorization + log minimale
+                .connectTimeout(30, TimeUnit.SECONDS)
+                .readTimeout(60, TimeUnit.SECONDS)
+                .writeTimeout(60, TimeUnit.SECONDS)
+        // 1) interceptor custom: aggiunge Authorization + log minimale
                 .addInterceptor(chain -> {
                     Request orig = chain.request();
 
