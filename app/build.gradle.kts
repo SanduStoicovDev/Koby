@@ -20,7 +20,6 @@ android {
 
         buildConfigField("String", "OPENAI_API_KEY", "\"$openAiKey\"")
         println("▶ BuildConfig debug – OPENAI = ${openAiKey.takeLast(4)}")
-
     }
 
     buildTypes {
@@ -46,7 +45,6 @@ android {
 }
 
 dependencies {
-
     //Design UI
     implementation(libs.appcompat)
     implementation (libs.cardview)
@@ -55,6 +53,9 @@ dependencies {
     implementation(libs.constraintlayout)
     implementation(libs.activity.ktx)
     implementation(libs.fragment.ktx)
+    implementation(libs.transition)
+    implementation(libs.material.v1110)
+    implementation(libs.lottie)
 
     //Navigation Lifecycle
     implementation(libs.lifecycle.livedata.ktx)
@@ -69,10 +70,8 @@ dependencies {
     implementation(libs.firebase.auth.v2300)
 
     //Firebase
-
     implementation(platform("com.google.firebase:firebase-bom:33.14.0"))
     implementation("com.google.firebase:firebase-firestore")
-
     implementation("com.firebaseui:firebase-ui-firestore:9.0.0")
     implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.database)
