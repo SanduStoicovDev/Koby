@@ -32,4 +32,10 @@
     <string name="select_pdf">Seleziona PDF</string>
     <string name="title_newChat">Nuova Chat</string>
     <string name="new_chat">Nuova Chat</string>
+    <string name="google_login">Login Google</string>
+    <string name="register_button">Registrazione</string>
+    <string name="go_to_login">Ritorna al login</string>
+    <string name="hint_confirm_password">Conferma Psw</string>
+    <string name="hint_name">Nome\n</string>
+    <string name="register_title">Registrazione</string>
 </resources>
