@@ -26,7 +26,7 @@
     <View
         android:id="@+id/scrim"
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:background="?attr/colorSurface"
         android:alpha="0.00"
         app:layout_constraintTop_toTopOf="parent"
@@ -55,7 +55,7 @@
             <!-- Logo -->
             <ImageView
                 android:id="@+id/imageLogo"
-                android:layout_width="150dp"
+                android:layout_width="0dp"
                 android:layout_height="160dp"
                 android:layout_marginTop="120dp"
                 android:contentDescription="@string/app_logo"
@@ -81,9 +81,9 @@
             <!-- Name User Layout Edit -->
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/nameLayout"
-                style="@style/Widget.Material3.TextInputLayout.FilledBox"
-                android:layout_width="380dp"
-                android:layout_height="60dp"
+                style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 android:hint="@string/hintNomeCompleto"
                 app:boxBackgroundColor="?attr/colorSurface"
@@ -93,9 +93,9 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/editName"
-                    style="@style/Widget.Material3.TextInputEditText.FilledBox"
-                    android:layout_width="380dp"
-                    android:layout_height="60dp"
+                    style="@style/Widget.Material3.TextInputEditText.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:inputType="textPersonName"
                     android:textColor="?attr/colorOnSurface"
                     android:textColorHint="?attr/colorOnSurfaceVariant"/>
@@ -104,9 +104,9 @@
             <!-- Email Layout Edit -->
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/emailLayout"
-                style="@style/Widget.Material3.TextInputLayout.FilledBox"
-                android:layout_width="380dp"
-                android:layout_height="60dp"
+                style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
                 android:hint="@string/hintEmail"
                 app:boxBackgroundColor="?attr/colorSurface"
@@ -116,9 +116,9 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/editEmail"
-                    style="@style/Widget.Material3.TextInputEditText.FilledBox"
-                    android:layout_width="380dp"
-                    android:layout_height="60dp"
+                    style="@style/Widget.Material3.TextInputEditText.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:inputType="textPersonName"
                     android:textColor="?attr/colorOnSurface"
                     android:textColorHint="?attr/colorOnSurfaceVariant"/>
@@ -127,9 +127,9 @@
             <!-- Password -->
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/passwordLayout"
-                style="@style/Widget.Material3.TextInputLayout.FilledBox"
-                android:layout_width="380dp"
-                android:layout_height="60dp"
+                style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
                 android:hint="@string/hintPassword"
                 app:boxBackgroundColor="?attr/colorSurface"
@@ -140,9 +140,9 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/editPassword"
-                    style="@style/Widget.Material3.TextInputEditText.FilledBox"
-                    android:layout_width="380dp"
-                    android:layout_height="60dp"
+                    style="@style/Widget.Material3.TextInputEditText.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:inputType="textPassword"
                     android:textColor="?attr/colorOnSurface"
                     android:textColorHint="?attr/colorOnSurfaceVariant"/>
@@ -151,9 +151,9 @@
             <!-- Conferma Password -->
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/confirmPasswordLayout"
-                style="@style/Widget.Material3.TextInputLayout.FilledBox"
-                android:layout_width="380dp"
-                android:layout_height="60dp"
+                style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
                 android:hint="@string/hintConfirmPassword"
                 app:boxBackgroundColor="?attr/colorSurface"
@@ -164,9 +164,9 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/editConfirmPassword"
-                    style="@style/Widget.Material3.TextInputEditText.FilledBox"
-                    android:layout_width="380dp"
-                    android:layout_height="60dp"
+                    style="@style/Widget.Material3.TextInputEditText.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:inputType="textPassword"
                     android:textColor="?attr/colorOnSurface"
                     android:textColorHint="?attr/colorOnSurfaceVariant"/>
