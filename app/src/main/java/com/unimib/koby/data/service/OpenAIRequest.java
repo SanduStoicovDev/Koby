@@ -1,4 +1,4 @@
-package com.unimib.koby.data.openai;
+package com.unimib.koby.data.service;
 import java.util.List;
 
 public class OpenAIRequest {

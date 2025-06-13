@@ -3,9 +3,9 @@ package com.unimib.koby.data.repository.chat;
 import android.util.Log;
 
 import com.unimib.koby.BuildConfig;
-import com.unimib.koby.data.openai.OpenAIRequest;
-import com.unimib.koby.data.openai.OpenAIResponse;
-import com.unimib.koby.data.openai.OpenAIService;
+import com.unimib.koby.data.service.OpenAIRequest;
+import com.unimib.koby.data.service.OpenAIResponse;
+import com.unimib.koby.data.service.OpenAIService;
 
 import java.io.IOException;
 import java.util.Collections;

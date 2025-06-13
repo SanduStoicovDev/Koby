@@ -1,10 +1,9 @@
-package com.unimib.koby.data.openai;
+package com.unimib.koby.data.service;
 
 import com.unimib.koby.BuildConfig;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
-import retrofit2.http.Headers;
 import retrofit2.http.POST;
 
 public interface OpenAIService {
