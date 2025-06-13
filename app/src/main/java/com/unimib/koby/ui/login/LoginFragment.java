@@ -1,8 +1,10 @@
 package com.unimib.koby.ui.login;
 
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
@@ -42,12 +44,35 @@ public class LoginFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         // --- View binding (kept manual for brevity) -----------------------------------------
+        View logo = view.findViewById(R.id.imageLogo);
+        View welcome = view.findViewById(R.id.textWelcome);
         emailLayout = view.findViewById(R.id.emailLayout);
-        passwordLayout = view.findViewById(R.id.passwordLayout);
         emailEdit   = view.findViewById(R.id.editEmail);
+        passwordLayout = view.findViewById(R.id.passwordLayout);
         passwordEdit= view.findViewById(R.id.editPassword);
         View loginButton = view.findViewById(R.id.buttonLogin);
+        View buttonGoogle = view.findViewById(R.id.loginGoogle);
         View registerLink = view.findViewById(R.id.textRegister);
+
+        // --- Animation senza Motion --------------------------------------------------------
+        long base = 200;
+        logo.setTranslationY(-100f);
+        logo.setAlpha(0f);
+        welcome.setAlpha(0f);
+        emailLayout.setAlpha(0f);
+        passwordLayout.setAlpha(0f);
+        loginButton.setAlpha(0f);
+        buttonGoogle.setAlpha(0f);
+        registerLink.setAlpha(0f);
+
+        logo.animate().translationY(0).alpha(1f).setDuration(500).setStartDelay(base);
+        welcome.animate().alpha(1f).setDuration(400).setStartDelay(base + 200);
+        emailLayout.animate().alpha(1f).setDuration(400).setStartDelay(base + 400);
+        passwordLayout.animate().alpha(1f).setDuration(400).setStartDelay(base + 600);
+        loginButton.animate().alpha(1f).setDuration(400).setStartDelay(base + 800);
+        buttonGoogle.animate().alpha(1f).setDuration(400).setStartDelay(base + 1000);
+        registerLink.animate().alpha(1f).setDuration(400).setStartDelay(base + 1200);
+
 
         // --- ViewModel ----------------------------------------------------------------------
         viewModel = new ViewModelProvider(
