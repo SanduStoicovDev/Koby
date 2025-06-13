@@ -74,21 +74,6 @@ public class UserRepository implements IUserRepository {
         return live;
     }
 
-    @Override
-    public void signUp(String email, String password) {
-
-    }
-
-    @Override
-    public void signIn(String email, String password) {
-
-    }
-
-    @Override
-    public void signInWithGoogle(String token) {
-
-    }
-
     private void handleAuthTask(@NonNull Task<AuthResult> task, MutableLiveData<Result> live) {
         if (task.isSuccessful()) {
             FirebaseUser fUser = authRemote.getCurrentUser();
