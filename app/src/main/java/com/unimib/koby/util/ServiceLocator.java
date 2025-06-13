@@ -39,7 +39,6 @@ public class ServiceLocator {
         if (userRepository == null) {
             if (authRemoteDS == null)  authRemoteDS  = new FirebaseAuthenticationRemoteDataSource();
             if (userRemoteDS == null)  userRemoteDS  = new FirebaseUserDataRemoteDataSource();
-            // Costruttore a 2 parametri (coerente con la tua classe UserRepository)
             userRepository = new UserRepository(authRemoteDS, userRemoteDS);
         }
         return userRepository;
