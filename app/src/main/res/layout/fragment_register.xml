@@ -67,7 +67,7 @@
 
             <!-- Create Account Text-->
             <TextView
-                android:id="@+id/registerTitle"
+                android:id="@+id/textCreateAccount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
@@ -87,7 +87,7 @@
                 android:layout_marginTop="24dp"
                 android:hint="@string/hintNomeCompleto"
                 app:boxBackgroundColor="?attr/colorSurface"
-                app:layout_constraintTop_toBottomOf="@id/registerTitle"
+                app:layout_constraintTop_toBottomOf="@id/textCreateAccount"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent">
 

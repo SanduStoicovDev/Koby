@@ -42,6 +42,11 @@ public class RegisterFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         // --- View binding --------------------------------------------------
+        View logo               = view.findViewById(R.id.imageLogo);
+        View textCreateAccount  = view.findViewById(R.id.textCreateAccount);
+        View registerBtn  = view.findViewById(R.id.buttonRegister);
+        View loginLink    = view.findViewById(R.id.textRegister);
+
         nameLayout        = view.findViewById(R.id.nameLayout);
         emailLayout       = view.findViewById(R.id.emailLayout);
         pwdLayout         = view.findViewById(R.id.passwordLayout);
@@ -52,8 +57,27 @@ public class RegisterFragment extends Fragment {
         pwdEdit           = view.findViewById(R.id.editPassword);
         confirmPwdEdit    = view.findViewById(R.id.editConfirmPassword);
 
-        View registerBtn  = view.findViewById(R.id.buttonRegister);
-        View loginLink    = view.findViewById(R.id.buttonGoToLogin);
+
+        // --- Animation senza Motion --------------------------------------------------------
+        long base = 200;
+        logo.setTranslationY(-100f);
+        logo.setAlpha(0f);
+        textCreateAccount.setAlpha(0f);
+        nameLayout.setAlpha(0f);
+        emailLayout.setAlpha(0f);
+        pwdLayout.setAlpha(0f);
+        confirmPwdLayout.setAlpha(0f);
+        registerBtn.setAlpha(0f);
+        loginLink.setAlpha(0f);
+
+        logo.animate().translationY(0).alpha(1f).setDuration(500).setStartDelay(base);
+        textCreateAccount.animate().alpha(1f).setDuration(400).setStartDelay(base + 200);
+        nameLayout.animate().alpha(1f).setDuration(400).setStartDelay(base + 400);
+        emailLayout.animate().alpha(1f).setDuration(400).setStartDelay(base + 400);
+        pwdLayout.animate().alpha(1f).setDuration(400).setStartDelay(base + 600);
+        confirmPwdLayout.animate().alpha(1f).setDuration(400).setStartDelay(base + 600);
+        registerBtn.animate().alpha(1f).setDuration(400).setStartDelay(base + 800);
+        loginLink.animate().alpha(1f).setDuration(400).setStartDelay(base + 1000);
 
         // --- ViewModel -----------------------------------------------------
         viewModel = new ViewModelProvider(
