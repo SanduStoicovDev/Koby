@@ -1,107 +1,203 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/registerLayout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/md_theme_surfaceContainerHighest"
-    android:padding="15dp">
+    android:layout_height="match_parent">
 
-    <LinearLayout
+    <!-- Background Lottie animation -->
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/lottieBackground"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:gravity="center_horizontal">
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:scaleType="centerCrop"
+        app:lottie_rawRes="@raw/bg_animation"
+        app:lottie_loop="true"
+        app:lottie_autoPlay="true"
+        app:lottie_ignoreDisabledSystemAnimations="true"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
-        <ImageView
-            android:id="@+id/logoImage"
-            android:layout_width="120dp"
-            android:layout_height="120dp"
-            android:layout_marginTop="32dp"
-            android:src="@drawable/logokoby"
-            android:contentDescription="Logo" />
+    <!-- Semi‑transparent scrim to guarantee WCAG contrast -->
+    <View
+        android:id="@+id/scrim"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="?attr/colorSurface"
+        android:alpha="0.00"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
-        <TextView
-            android:id="@+id/title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Crea un account"
-            android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
-            android:layout_marginTop="24dp"
-            android:textColor="@color/md_theme_primary" />
+    <!-- Overlay UI container -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="24dp"
+        android:fillViewport="true"
+        android:background="@android:color/transparent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/nameLayout"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Nome completo"
-            android:layout_marginTop="24dp">
+            android:orientation="vertical"
+            android:background="@android:color/transparent">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/editName"
-                android:layout_width="match_parent"
+            <!-- Logo -->
+            <ImageView
+                android:id="@+id/imageLogo"
+                android:layout_width="150dp"
+                android:layout_height="160dp"
+                android:layout_marginTop="120dp"
+                android:contentDescription="@string/app_logo"
+                android:scaleType="centerInside"
+                android:src="@drawable/logokoby"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <!-- Create Account Text-->
+            <TextView
+                android:id="@+id/registerTitle"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:inputType="textPersonName" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:layout_marginTop="12dp"
+                android:text="@string/createAccount"
+                android:textAppearance="@style/TextAppearance.Material3.HeadlineLarge"
+                android:textColor="@color/md_theme_primary"
+                app:layout_constraintTop_toBottomOf="@id/imageLogo"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/emailLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Indirizzo email"
-            android:layout_marginTop="16dp">
+            <!-- Name User Layout Edit -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/nameLayout"
+                style="@style/Widget.Material3.TextInputLayout.FilledBox"
+                android:layout_width="380dp"
+                android:layout_height="60dp"
+                android:layout_marginTop="24dp"
+                android:hint="@string/hintNomeCompleto"
+                app:boxBackgroundColor="?attr/colorSurface"
+                app:layout_constraintTop_toBottomOf="@id/registerTitle"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/editEmail"
-                android:layout_width="match_parent"
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editName"
+                    style="@style/Widget.Material3.TextInputEditText.FilledBox"
+                    android:layout_width="380dp"
+                    android:layout_height="60dp"
+                    android:inputType="textPersonName"
+                    android:textColor="?attr/colorOnSurface"
+                    android:textColorHint="?attr/colorOnSurfaceVariant"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Email Layout Edit -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/emailLayout"
+                style="@style/Widget.Material3.TextInputLayout.FilledBox"
+                android:layout_width="380dp"
+                android:layout_height="60dp"
+                android:layout_marginTop="12dp"
+                android:hint="@string/hintEmail"
+                app:boxBackgroundColor="?attr/colorSurface"
+                app:layout_constraintTop_toBottomOf="@id/nameLayout"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editEmail"
+                    style="@style/Widget.Material3.TextInputEditText.FilledBox"
+                    android:layout_width="380dp"
+                    android:layout_height="60dp"
+                    android:inputType="textPersonName"
+                    android:textColor="?attr/colorOnSurface"
+                    android:textColorHint="?attr/colorOnSurfaceVariant"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Password -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/passwordLayout"
+                style="@style/Widget.Material3.TextInputLayout.FilledBox"
+                android:layout_width="380dp"
+                android:layout_height="60dp"
+                android:layout_marginTop="12dp"
+                android:hint="@string/hintPassword"
+                app:boxBackgroundColor="?attr/colorSurface"
+                app:endIconMode="password_toggle"
+                app:layout_constraintTop_toBottomOf="@id/emailLayout"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editPassword"
+                    style="@style/Widget.Material3.TextInputEditText.FilledBox"
+                    android:layout_width="380dp"
+                    android:layout_height="60dp"
+                    android:inputType="textPassword"
+                    android:textColor="?attr/colorOnSurface"
+                    android:textColorHint="?attr/colorOnSurfaceVariant"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Conferma Password -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/confirmPasswordLayout"
+                style="@style/Widget.Material3.TextInputLayout.FilledBox"
+                android:layout_width="380dp"
+                android:layout_height="60dp"
+                android:layout_marginTop="12dp"
+                android:hint="@string/hintConfirmPassword"
+                app:boxBackgroundColor="?attr/colorSurface"
+                app:endIconMode="password_toggle"
+                app:layout_constraintTop_toBottomOf="@id/passwordLayout"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editConfirmPassword"
+                    style="@style/Widget.Material3.TextInputEditText.FilledBox"
+                    android:layout_width="380dp"
+                    android:layout_height="60dp"
+                    android:inputType="textPassword"
+                    android:textColor="?attr/colorOnSurface"
+                    android:textColorHint="?attr/colorOnSurfaceVariant"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Register button -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/buttonRegister"
+                style="@style/Widget.Material3.Button.Icon"
+                android:layout_width="300dp"
+                android:layout_height="60dp"
+                android:layout_marginTop="24dp"
+                android:text="@string/hintRegister"
+                app:layout_constraintTop_toBottomOf="@id/confirmPasswordLayout"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+            <!-- Register link -->
+            <TextView
+                android:id="@+id/textRegister"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:inputType="textEmailAddress" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:layout_marginTop="24dp"
+                android:text="@string/hintAlreadyHaveAccount"
+                android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+                android:textColor="?attr/colorPrimary"
+                app:layout_constraintTop_toBottomOf="@id/buttonRegister"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/passwordLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Password"
-            android:layout_marginTop="16dp">
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/editPassword"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textPassword" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/confirmPasswordLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Conferma Password"
-            android:layout_marginTop="16dp">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/editConfirmPassword"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textPassword" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/buttonRegister"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Registrati"
-            android:layout_marginTop="24dp"
-            style="@style/Widget.Material3.Button" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/buttonGoToLogin"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Hai già un account? Accedi"
-            android:layout_marginTop="8dp"
-            android:backgroundTint="@android:color/transparent"
-            android:textColor="?attr/colorPrimary"
-            android:elevation="0dp"
-            android:padding="0dp" />
-    </LinearLayout>
-</ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>
