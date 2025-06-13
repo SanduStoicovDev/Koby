@@ -29,7 +29,7 @@ public class UserViewModel extends ViewModel {
     }
 
     // GOOGLE LOGIN ------------------------------------------------------------------------
-    public LiveData<Result> googleLogin(String idToken) {
+    public LiveData<Result> loginWithGoogle(String idToken) {
         loading.setValue(true);
         LiveData<Result> source = repository.loginWithGoogle(idToken);
         return Transformations.map(source, r -> { loading.postValue(false); return r; });
