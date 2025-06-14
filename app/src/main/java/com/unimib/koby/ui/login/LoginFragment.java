@@ -1,20 +1,32 @@
 package com.unimib.koby.ui.login;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.unimib.koby.R;
@@ -53,6 +65,7 @@ public class LoginFragment extends Fragment {
         View loginButton = view.findViewById(R.id.buttonLogin);
         View buttonGoogle = view.findViewById(R.id.loginGoogle);
         View registerLink = view.findViewById(R.id.textRegister);
+        ProgressBar progressBar = view.findViewById(R.id.progressBar);
 
         // --- Animation senza Motion --------------------------------------------------------
         long base = 200;
@@ -89,6 +102,23 @@ public class LoginFragment extends Fragment {
         loginButton.setOnClickListener(v -> attemptLogin());
         registerLink.setOnClickListener(v -> Navigation.findNavController(v)
                 .navigate(R.id.action_loginFragment_to_registerFragment));
+
+        buttonGoogle.setOnClickListener(v -> {
+            GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                    .requestIdToken(getString(R.string.default_web_client_id))
+                    .requestEmail()
+                    .build();
+
+            GoogleSignInClient googleSignInClient = GoogleSignIn.getClient(requireActivity(), gso);
+            Intent signInIntent = googleSignInClient.getSignInIntent();
+            googleSignInLauncher.launch(signInIntent);
+        });
+
+        viewModel.getLoading().observe(getViewLifecycleOwner(), isLoading -> {
+            progressBar.setVisibility(isLoading != null && isLoading ? View.VISIBLE : View.GONE);
+            loginButton.setEnabled(Boolean.FALSE.equals(isLoading));
+            buttonGoogle.setEnabled(Boolean.FALSE.equals(isLoading));
+        });
     }
 
     private void attemptLogin() {
@@ -121,4 +151,30 @@ public class LoginFragment extends Fragment {
             }
         });
     }
+
+    ActivityResultLauncher<Intent> googleSignInLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            result -> {
+                if (result.getResultCode() == Activity.RESULT_OK) {
+                    Intent data = result.getData();
+                    Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+                    try {
+                        GoogleSignInAccount account = task.getResult(ApiException.class);
+                        if (account != null) {
+                            viewModel.loginWithGoogle(account.getIdToken()).observe(getViewLifecycleOwner(), resultObj -> {
+                                if (resultObj instanceof Result.Success) {
+                                    // Vai alla Home
+                                    Navigation.findNavController(requireView()).navigate(R.id.action_loginFragment_to_mainActivity);
+                                } else if (resultObj instanceof Result.Error) {
+                                    Toast.makeText(requireContext(), ((Result.Error) resultObj).getMessage(), Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                        }
+                    } catch (ApiException e) {
+                        Toast.makeText(requireContext(), "Errore login Google", Toast.LENGTH_SHORT).show();
+                        Log.e("Login", "Google sign-in failed", e);
+                    }
+                }
+            });
+
 }
