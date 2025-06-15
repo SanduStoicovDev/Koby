@@ -43,4 +43,5 @@
     <string name="hintConfirmPassword">Conferma Password</string>
     <string name="hintRegister">Registrati</string>
     <string name="hintAlreadyHaveAccount">Hai già un account? Accedi</string>
+    <string name="title_profile">Profilo</string>
 </resources>
