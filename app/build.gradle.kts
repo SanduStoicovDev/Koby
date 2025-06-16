@@ -102,6 +102,8 @@ dependencies {
     // Picasso Image & PDF Parser
     implementation (libs.picasso)
     implementation("com.tom-roush:pdfbox-android:2.0.27.0")
+    implementation(libs.glide)
+    annotationProcessor(libs.compiler)
 
     //Testing JUnit Espresso
     testImplementation(libs.junit)
