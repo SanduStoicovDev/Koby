@@ -80,6 +80,7 @@ dependencies {
     implementation(libs.play.services.base)
     implementation(libs.firebase.firestore)
     implementation(libs.firebase.storage)
+    implementation(libs.preference)
     coreLibraryDesugaring(libs.desugar.jdk.libs)
 
     // Retrofit & Converter GSON
