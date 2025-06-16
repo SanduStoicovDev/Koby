@@ -23,7 +23,6 @@ import com.unimib.koby.adapter.ChatAdapter;
 import com.unimib.koby.databinding.FragmentHomeBinding;
 import com.unimib.koby.model.Chat;
 import com.unimib.koby.data.repository.chat.ChatRepository;
-import com.unimib.koby.util.LocaleHelper;
 
 public class HomeFragment extends Fragment {
     private FragmentHomeBinding binding;
