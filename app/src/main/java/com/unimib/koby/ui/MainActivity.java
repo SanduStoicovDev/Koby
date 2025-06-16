@@ -1,12 +1,14 @@
 package com.unimib.koby.ui;
 
 import android.os.Bundle;
+import android.view.View;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
@@ -32,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        BottomNavigationView navView = findViewById(R.id.nav_view);
+        BottomNavigationView navView = findViewById(R.id.bottom_nav_view);
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
@@ -44,7 +46,19 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = navHostFragment.getNavController();
 
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
-        NavigationUI.setupWithNavController(binding.navView, navController);
+        NavigationUI.setupWithNavController(binding.bottomNavView, navController);
+
+        //   2. Ascolta i cambi di destinazione
+        navController.addOnDestinationChangedListener(
+                (controller, destination, arguments) -> {
+
+                    //   3. Se la destinazione è il tuo fragment di chat, nascondi
+                    if (destination.getId() == R.id.fragment_new_chat) {
+                        binding.bottomNavView.setVisibility(View.GONE);
+                    } else {
+                        binding.bottomNavView.setVisibility(View.VISIBLE);
+                    }
+                });
     }
 
     @Override
