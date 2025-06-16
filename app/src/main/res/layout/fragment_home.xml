@@ -14,8 +14,10 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler"
             android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_height="match_parent"
             android:clipToPadding="false"
+            android:paddingTop="?attr/actionBarSize"
+            android:paddingBottom="72dp"
             android:paddingHorizontal="8dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
