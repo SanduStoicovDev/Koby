@@ -32,7 +32,6 @@ import com.unimib.koby.ui.login.UserViewModel;
 import com.unimib.koby.ui.login.UserViewModelFactory;
 import com.unimib.koby.ui.settings.SettingsViewModel;
 import com.unimib.koby.ui.settings.SettingsViewModelFactory;
-import com.unimib.koby.util.LocaleHelper;
 import com.unimib.koby.util.ServiceLocator;
 
 public class ProfileFragment extends Fragment {
