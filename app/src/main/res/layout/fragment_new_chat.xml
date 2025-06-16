@@ -2,12 +2,40 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <data/>   <!-- Se un domani vorrai collegare il ViewModel in binding -->
+    <data>
+        <!-- Collega qui il tuo ViewModel se utilizzi Data Binding -->
+    </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="24dp">
+        android:layout_height="match_parent">
+
+        <!-- Lottie Background (riusa la stessa animazione del login) -->
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/lottieBackground"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            app:lottie_rawRes="@raw/bg_animation"
+            app:lottie_loop="true"
+            app:lottie_autoPlay="true"
+            app:lottie_ignoreDisabledSystemAnimations="true"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <!-- Scrim per garantire contrasto sugli elementi sovrastanti -->
+        <View
+            android:id="@+id/scrim"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="?attr/colorSurface"
+            android:alpha="0.00"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
 
         <!-- Top App Bar -->
         <com.google.android.material.appbar.MaterialToolbar
@@ -15,50 +43,122 @@
             style="@style/Widget.Material3.Toolbar"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:elevation="4dp"
             android:title="@string/new_chat_title"
+            android:elevation="4dp"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
-        <!-- Nome file selezionato (facoltativo) -->
-        <TextView
-            android:id="@+id/tvFileName"
+        <!-- RecyclerView per i messaggi della chat -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvMessages"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:clipToPadding="false"
+            android:overScrollMode="never"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            app:layout_constraintTop_toBottomOf="@id/toolbar"
+            app:layout_constraintBottom_toTopOf="@id/messageInputContainer"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <!-- Container dell'input in basso -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/messageInputContainer"
+            style="@style/Widget.Material3.CardView.Filled"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:ellipsize="middle"
-            android:maxLines="1"
-            android:textAppearance="?attr/textAppearanceBodyMedium"
-            app:layout_constraintTop_toBottomOf="@id/toolbar"
+            android:layout_margin="16dp"
+            app:cardElevation="2dp"
+            app:cardCornerRadius="24dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent">
 
-        <!-- Bottone per scegliere il PDF -->
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnPickPdf"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:text="@string/select_pdf"
-            app:icon="@drawable/logopdf"
-            app:iconPadding="8dp"
-            app:iconTint="?attr/colorOnPrimary"
-            app:layout_constraintTop_toBottomOf="@id/tvFileName"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp"
+                android:paddingTop="4dp"
+                android:paddingBottom="4dp">
 
-        <!-- Progress bar circolare -->
+                <!-- Bottone scelta PDF a sinistra -->
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/btnPickPdf"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="?attr/colorPrimaryContainer"
+                    android:contentDescription="@string/select_pdf"
+                    android:padding="8dp"
+                    app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Full"
+                    app:srcCompat="@drawable/logopdf"
+                    app:tint="?attr/colorOnPrimaryContainer"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent" />
+
+                <!-- Campo di testo per il messaggio -->
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/messageInputLayout"
+                    style="@style/Widget.Material3.TextInputLayout.FilledBox.Dense"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:hint="@string/chat_hint"
+                    app:boxBackgroundColor="?attr/colorSurfaceContainer"
+                    app:boxCornerRadiusTopStart="12dp"
+                    app:boxCornerRadiusTopEnd="12dp"
+                    app:boxCornerRadiusBottomStart="12dp"
+                    app:boxCornerRadiusBottomEnd="12dp"
+                    app:layout_constraintStart_toEndOf="@id/btnPickPdf"
+                    app:layout_constraintEnd_toStartOf="@id/btnSend"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/editMessage"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textMultiLine"
+                        android:maxLines="4"
+                        android:scrollbars="vertical"
+                        android:imeOptions="actionSend" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!-- Bottone invio a destra -->
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/btnSend"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="?attr/colorPrimaryContainer"
+                    android:contentDescription="@string/send"
+                    android:padding="8dp"
+                    app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Full"
+                    app:srcCompat="@drawable/send"
+                    app:tint="?attr/colorOnPrimaryContainer"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Indicatore di progresso -->
         <com.google.android.material.progressindicator.CircularProgressIndicator
             android:id="@+id/progress"
             style="@style/Widget.Material3.CircularProgressIndicator"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:visibility="gone"
-            app:layout_constraintTop_toBottomOf="@id/btnPickPdf"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:indicatorSize="40dp"
+            app:layout_constraintTop_toBottomOf="@id/rvMessages"
+            app:layout_constraintBottom_toTopOf="@id/messageInputContainer"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </layout>
