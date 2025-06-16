@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="CircleShape"
+        parent="@style/ShapeAppearanceOverlay.Material3.Chip" />
+</resources>
