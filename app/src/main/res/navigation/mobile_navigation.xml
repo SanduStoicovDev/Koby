@@ -29,7 +29,7 @@
 
     <fragment
         android:id="@+id/navigation_profile"
-        android:name="com.unimib.koby.ui.notifications.NotificationsFragment"
-        android:label="@string/title_notifications"
+        android:name="com.unimib.koby.ui.profile.ProfileFragment"
+        android:label="@string/title_profile"
         tools:layout="@layout/fragment_profile" />
 </navigation>
