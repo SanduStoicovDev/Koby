@@ -51,6 +51,7 @@ firebaseFirestore = "25.1.4"
 firebaseStorage = "21.0.2"
 tomRoushPdfboxAndroid = "2.0.27.0"
 transition = "1.6.0"
+preference = "1.2.1"
 
 [libraries]
 activity-ktx = { module = "androidx.activity:activity-ktx", version.ref = "activityKtx" }
@@ -106,6 +107,7 @@ firebase-firestore = { group = "com.google.firebase", name = "firebase-firestore
 firebase-storage = { group = "com.google.firebase", name = "firebase-storage", version.ref = "firebaseStorage" }
 tom-roush-pdfbox-android = { module = "com.tom-roush:pdfbox-android", version.ref = "tomRoushPdfboxAndroid" }
 transition = { module = "androidx.transition:transition", version.ref = "transition" }
+preference = { group = "androidx.preference", name = "preference", version.ref = "preference" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
