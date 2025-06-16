@@ -44,4 +44,8 @@
     <string name="hintRegister">Registrati</string>
     <string name="hintAlreadyHaveAccount">Hai già un account? Accedi</string>
     <string name="title_profile">Profilo</string>
+    <string name="profile_picture">Foto profilo</string>
+    <string name="label_language">Cambio lingua</string>
+    <string name="label_theme">Tema scuro</string>
+    <string name="logout">Logout</string>
 </resources>
