@@ -2,7 +2,9 @@ package com.unimib.koby.ui.newchat;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Insets;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,8 +15,11 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.unimib.koby.databinding.FragmentNewChatBinding;
 import com.unimib.koby.model.Result;
@@ -34,6 +39,9 @@ public class NewChatFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view,@Nullable Bundle savedInstanceState){
+        final View root          = binding.getRoot();                 // ConstraintLayout
+        final View composer      = binding.messageInputContainer;     // la card con EditText
+        final RecyclerView list  = binding.rvMessages;                // messaggi
         vm = new ViewModelProvider(this).get(NewChatViewModel.class);
         pdfPicker = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), res->{
             if(res.getResultCode()== Activity.RESULT_OK && res.getData()!=null){
@@ -46,6 +54,24 @@ public class NewChatFragment extends Fragment {
                 }
             }
         });
+
+        //Gestione Tastiera
+        ViewCompat.setOnApplyWindowInsetsListener(root, (v, insets) -> {
+
+            int imeBottom = insets.getInsets(WindowInsetsCompat.Type.ime()).bottom;
+
+            composer.setTranslationY(-imeBottom);
+
+            list.setPadding(
+                    list.getPaddingLeft(),
+                    list.getPaddingTop(),
+                    list.getPaddingRight(),
+                    imeBottom + composer.getHeight()
+            );
+
+            return insets;
+        });
+
 
         binding.btnPickPdf.setOnClickListener(v->{
             Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
