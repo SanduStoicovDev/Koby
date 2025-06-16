@@ -1,12 +1,15 @@
 package com.unimib.koby.ui.profile;
 
 import android.Manifest;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
@@ -21,10 +24,15 @@ import com.bumptech.glide.Glide;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.google.android.material.materialswitch.MaterialSwitch;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.unimib.koby.R;
 import com.unimib.koby.model.Result;
 import com.unimib.koby.ui.login.UserViewModel;
 import com.unimib.koby.ui.login.UserViewModelFactory;
+import com.unimib.koby.ui.settings.SettingsViewModel;
+import com.unimib.koby.ui.settings.SettingsViewModelFactory;
+import com.unimib.koby.util.LocaleHelper;
 import com.unimib.koby.util.ServiceLocator;
 
 public class ProfileFragment extends Fragment {
@@ -49,6 +57,23 @@ public class ProfileFragment extends Fragment {
         MaterialSwitch langSwitch = v.findViewById(R.id.switchLanguage);
         MaterialSwitch themeSwitch = v.findViewById(R.id.switchTheme);
 
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        if (currentUser != null) {
+            // Recupera e mostra nome
+            TextView nameView = v.findViewById(R.id.textName);
+            nameView.setText(currentUser.getDisplayName());
+
+            // Recupera e mostra email
+            TextView emailView = v.findViewById(R.id.textEmail);
+            emailView.setText(currentUser.getEmail());
+
+            // Recupera e mostra foto (se esiste)
+            Uri photoUrl = currentUser.getPhotoUrl();
+            if (photoUrl != null) {
+                Glide.with(this).load(photoUrl).circleCrop().into(avatar);
+            }
+        }
+
         // 1) registra pickImage prima, così la callback esiste già
         pickImage = registerForActivityResult(new ActivityResultContracts.GetContent(), this::handleImage);
 
@@ -61,6 +86,19 @@ public class ProfileFragment extends Fragment {
         userVM = new ViewModelProvider(requireActivity(),
                 new UserViewModelFactory(ServiceLocator.getInstance().getUserRepository(requireActivity().getApplication())))
                 .get(UserViewModel.class);
+
+        SettingsViewModel settingsVM = new ViewModelProvider(
+                this, new SettingsViewModelFactory(requireContext()))
+                .get(SettingsViewModel.class);
+
+        settingsVM.getEnglish().observe(getViewLifecycleOwner(), langSwitch::setChecked);
+        settingsVM.getDark().observe(getViewLifecycleOwner(), themeSwitch::setChecked);
+
+        langSwitch.setOnCheckedChangeListener((b, checked) ->
+                settingsVM.toggleEnglish(checked));
+
+        themeSwitch.setOnCheckedChangeListener((b, checked) ->
+                settingsVM.toggleDark(checked));
 
         /* Placeholder: carica foto reale se disponibile */
         Glide.with(this)
@@ -81,8 +119,6 @@ public class ProfileFragment extends Fragment {
             if (r.isSuccess()) requireActivity().finish();
             else Toast.makeText(requireContext(), ((Result.Error) r).getMessage(), Toast.LENGTH_LONG).show();
         }));
-
-        // TODO: bind langSwitch / themeSwitch alle preferenze
     }
 
     private void handleImage(Uri uri) {

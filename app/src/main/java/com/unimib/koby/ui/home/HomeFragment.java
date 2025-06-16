@@ -1,6 +1,7 @@
 package com.unimib.koby.ui.home;
 
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +23,7 @@ import com.unimib.koby.adapter.ChatAdapter;
 import com.unimib.koby.databinding.FragmentHomeBinding;
 import com.unimib.koby.model.Chat;
 import com.unimib.koby.data.repository.chat.ChatRepository;
+import com.unimib.koby.util.LocaleHelper;
 
 public class HomeFragment extends Fragment {
     private FragmentHomeBinding binding;
