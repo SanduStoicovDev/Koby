@@ -101,7 +101,7 @@
             <!-- Email -->
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/emailLayout"
-                style="@style/Widget.Material3.TextInputLayout.FilledBox"
+                style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
@@ -113,7 +113,7 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/editEmail"
-                    style="@style/Widget.Material3.TextInputEditText.FilledBox"
+                    style="@style/Widget.Material3.TextInputEditText.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textEmailAddress"
@@ -124,7 +124,7 @@
             <!-- Password -->
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/passwordLayout"
-                style="@style/Widget.Material3.TextInputLayout.FilledBox"
+                style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
@@ -137,7 +137,7 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/editPassword"
-                    style="@style/Widget.Material3.TextInputEditText.FilledBox"
+                    style="@style/Widget.Material3.TextInputEditText.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textPassword"

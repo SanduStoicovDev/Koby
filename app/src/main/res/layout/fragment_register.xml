@@ -61,7 +61,7 @@
                 android:id="@+id/imageLogo"
                 android:layout_width="0dp"
                 android:layout_height="160dp"
-                android:layout_marginTop="50dp"
+                android:layout_marginTop="30dp"
                 android:contentDescription="@string/app_logo"
                 android:scaleType="centerInside"
                 android:src="@drawable/logokoby"
@@ -85,7 +85,7 @@
             <!-- Name User Layout Edit -->
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/nameLayout"
-                style="@style/Widget.Material3.TextInputLayout.FilledBox"
+                style="@style/Widget.Material3.TextInputLayout.OutlinedBox.Dense"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
@@ -97,7 +97,7 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/editName"
-                    style="@style/Widget.Material3.TextInputEditText.FilledBox"
+                    style="@style/Widget.Material3.TextInputEditText.OutlinedBox.Dense"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textPersonName"
@@ -108,7 +108,7 @@
             <!-- Email Layout Edit -->
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/emailLayout"
-                style="@style/Widget.Material3.TextInputLayout.FilledBox"
+                style="@style/Widget.Material3.TextInputLayout.OutlinedBox.Dense"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
@@ -120,7 +120,7 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/editEmail"
-                    style="@style/Widget.Material3.TextInputEditText.FilledBox"
+                    style="@style/Widget.Material3.TextInputEditText.OutlinedBox.Dense"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textPersonName"
@@ -131,7 +131,7 @@
             <!-- Password -->
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/passwordLayout"
-                style="@style/Widget.Material3.TextInputLayout.FilledBox"
+                style="@style/Widget.Material3.TextInputLayout.OutlinedBox.Dense"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
@@ -144,7 +144,7 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/editPassword"
-                    style="@style/Widget.Material3.TextInputEditText.FilledBox"
+                    style="@style/Widget.Material3.TextInputEditText.OutlinedBox.Dense"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textPassword"
@@ -155,7 +155,7 @@
             <!-- Conferma Password -->
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/confirmPasswordLayout"
-                style="@style/Widget.Material3.TextInputLayout.FilledBox"
+                style="@style/Widget.Material3.TextInputLayout.OutlinedBox.Dense"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
@@ -168,7 +168,7 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/editConfirmPassword"
-                    style="@style/Widget.Material3.TextInputEditText.FilledBox"
+                    style="@style/Widget.Material3.TextInputEditText.OutlinedBox.Dense"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textPassword"
