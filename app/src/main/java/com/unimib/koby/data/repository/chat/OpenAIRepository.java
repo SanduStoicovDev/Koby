@@ -74,4 +74,20 @@ public class OpenAIRepository {
         }
         throw new IOException("Risposta vuota da OpenAI");
     }
+
+    /** Chat “generica”: dato un prompt restituisce la risposta dell’assistente. */
+    public String chat(String userPrompt) throws IOException {
+
+        OpenAIRequest req = new OpenAIRequest();
+        req.model = "gpt-4o";   // usa lo stesso modello di summarize
+        req.messages = Collections.singletonList(
+                new OpenAIRequest.Message("user", userPrompt));
+
+        OpenAIResponse resp = api.chatCompletion(req).execute().body();
+
+        if (resp != null && resp.choices != null && !resp.choices.isEmpty()) {
+            return resp.choices.get(0).message.content;
+        }
+        throw new IOException("Risposta vuota da OpenAI");
+    }
 }

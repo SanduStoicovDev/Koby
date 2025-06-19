@@ -6,68 +6,106 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.unimib.koby.model.Chat;
-import com.unimib.koby.model.ChatMessage;
 import com.unimib.koby.data.repository.chat.ChatRepository;
 import com.unimib.koby.data.repository.chat.OpenAIRepository;
+import com.unimib.koby.model.Chat;
+import com.unimib.koby.model.ChatMessage;
 import com.unimib.koby.model.Result;
 
 import com.tom_roush.pdfbox.pdmodel.PDDocument;
 import com.tom_roush.pdfbox.text.PDFTextStripper;
 
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-
+/**
+ * ViewModel che gestisce la logica di una nuova chat:
+ *  • salvataggio PDF scelto
+ *  • chiamate OpenAI (riassunto o semplice chat)
+ *  • LiveData per messaggi, loading, risultato/errore
+ */
 public class NewChatViewModel extends ViewModel {
-    private final OpenAIRepository openAI = new OpenAIRepository();
-    private final ChatRepository chatRepo = new ChatRepository();
-    private final MutableLiveData<Result> result = new MutableLiveData<>();
-    private final ExecutorService io = Executors.newSingleThreadExecutor();
 
+    private final ChatRepository chatRepo = new ChatRepository();
+    private final OpenAIRepository openAI  = new OpenAIRepository();
+    private final ExecutorService io       = Executors.newSingleThreadExecutor();
+
+    /** Messaggi mostrati nella conversazione */
+    private final MutableLiveData<List<ChatMessage>> messages = new MutableLiveData<>(new ArrayList<>());
+    public LiveData<List<ChatMessage>> getMessages() { return messages; }
+
+    /** Stato di caricamento (progress bar) */
+    private final MutableLiveData<Boolean> loading = new MutableLiveData<>(false);
+    public LiveData<Boolean> getLoading() { return loading; }
+
+    /** Risultato finale (successo / errore) */
+    private final MutableLiveData<Result> result = new MutableLiveData<>();
     public LiveData<Result> getResult() { return result; }
 
-    private static final String TAG = "NewChatVM";
+    /** PDF selezionato ma non ancora inviato */
+    private InputStream pendingPdf;
 
-    public void createChatFromPdf(InputStream pdfStream) {
+    // -----------------------------------------------------
+    // Public API
+    // -----------------------------------------------------
+
+    public void setPendingPdf(InputStream pdf) {
+        this.pendingPdf = pdf;
+    }
+
+    public void send(String userPrompt) {
+        appendMessage(new ChatMessage("user", userPrompt));
+        loading.postValue(true);
+
         io.execute(() -> {
             try {
-                // 1. Carica PDF e logga info
-                String text;
-                try (PDDocument doc = PDDocument.load(pdfStream)) {
-                    Log.d(TAG, "PDF caricato. Pagine: " + doc.getNumberOfPages());
-                    text = new PDFTextStripper().getText(doc);
+                String answer;
+                if (pendingPdf != null) {
+                    // -------- Riassunto PDF --------
+                    String text;
+                    try (PDDocument doc = PDDocument.load(pendingPdf)) {
+                        text = new PDFTextStripper().getText(doc);
+                    }
+                    answer = openAI.summarize(text);
+                    pendingPdf = null; // consumato
+                } else {
+                    // -------- Chat semplice --------
+                    answer = openAI.chat(userPrompt);
                 }
-                Log.d(TAG, "Lunghezza testo estratto: " + text.length() + " caratteri");
 
-                // 2. Chiamata OpenAI
-                String summary = openAI.summarize(text);
-                Log.d(TAG, "Riassunto generato. Token stimati: " + summary.length()/4);
+                ChatMessage assistant = new ChatMessage("assistant", answer);
+                chatRepo.createChat(new Chat(userPrompt, answer), Arrays.asList(
+                        new ChatMessage("user", userPrompt), assistant));
 
-                // 3. Salvataggio Firestore
-                Chat chat = new Chat("Riassunto PDF", summary);
-                ChatMessage userMsg = new ChatMessage("user", "[PDF caricato]");
-                ChatMessage assistantMsg = new ChatMessage("assistant", summary);
-
-                chatRepo.createChat(chat,
-                                Arrays.asList(userMsg, assistantMsg))
-                        .whenComplete((id, err) -> {
-                            if (err == null) {
-                                Log.d(TAG, "Chat salvata con id=" + id);
-                                result.postValue(new Result.Success<>(summary));
-                            } else {
-                                Log.e(TAG, "Errore Firestore", err);
-                                result.postValue(new Result.Error(err.getMessage()));
-                            }
-                        });
+                appendMessage(assistant);
+                result.postValue(new Result.Success(answer));
 
             } catch (Exception e) {
-                Log.e(TAG, "Errore generico", e);// stack-trace completo
+                Log.e("NewChatViewModel", "OpenAI call failed", e);
                 result.postValue(new Result.Error(e.getMessage()));
+            } finally {
+                loading.postValue(false);
             }
         });
     }
 
+    // -----------------------------------------------------
+    // Helpers
+    // -----------------------------------------------------
+
+    private void appendMessage(ChatMessage m) {
+        List<ChatMessage> cur = new ArrayList<>(messages.getValue());
+        cur.add(m);
+        messages.postValue(cur);
+    }
+
+    @Override
+    protected void onCleared() {
+        super.onCleared();
+        io.shutdownNow();
+    }
 }
