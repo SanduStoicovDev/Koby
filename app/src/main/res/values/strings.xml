@@ -52,4 +52,7 @@
     <string name="send">Invia</string>
     <string name="pick_pdf">seleziona PDF</string>
     <string name="pdf_attached">Il pdf è stato allegato correttamente</string>
+    <string name="title_chat_detail">Dettaglio Chat</string>
+    <string name="home_welcome">Benvenuto in Koby\n— Your best Study Buddy —</string>
+    <string name="home_subtitle">Per creare una nuova chat</string>
 </resources>

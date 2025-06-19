@@ -3,4 +3,10 @@
 
     <style name="CircleShape"
         parent="@style/ShapeAppearanceOverlay.Material3.Chip" />
+    <style name="Koby.DisplayHuge" parent="TextAppearance.Material3.DisplayLarge">
+        <item name="android:textSize">40sp</item>
+        <item name="android:textColor">@color/md_theme_onSurface</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
 </resources>

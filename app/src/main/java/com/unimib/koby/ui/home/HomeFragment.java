@@ -1,52 +1,65 @@
 package com.unimib.koby.ui.home;
 
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.OvershootInterpolator;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.fragment.NavHostFragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+import androidx.navigation.Navigation;
 
-import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
-import com.firebase.ui.firestore.FirestoreRecyclerOptions;
-import com.google.firebase.firestore.Query;
 import com.unimib.koby.R;
-import com.unimib.koby.adapter.ChatAdapter;
 import com.unimib.koby.databinding.FragmentHomeBinding;
-import com.unimib.koby.model.Chat;
-import com.unimib.koby.data.repository.chat.ChatRepository;
 
 public class HomeFragment extends Fragment {
+
     private FragmentHomeBinding binding;
-    private ChatAdapter adapter;
 
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
-        binding = FragmentHomeBinding.inflate(inflater,container,false);
+    public View onCreateView(@NonNull LayoutInflater inflater,
+                             ViewGroup container,
+                             Bundle savedInstanceState) {
+        binding = FragmentHomeBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
 
     @Override
-    public void onViewCreated(@NonNull View view,@Nullable Bundle savedInstanceState){
-        ChatRepository repo = new ChatRepository();
-        Query q = repo.allChats().orderBy("createdAt", Query.Direction.DESCENDING);
-        FirestoreRecyclerOptions<Chat> opts = new FirestoreRecyclerOptions.Builder<Chat>()
-                .setQuery(q, Chat.class)
-                .setLifecycleOwner(this)
-                .build();
-        adapter = new ChatAdapter(opts);
-        binding.recycler.setLayoutManager(new LinearLayoutManager(requireContext()));
-        binding.recycler.setAdapter(adapter);
+    public void onViewCreated(@NonNull View view,
+                              @Nullable Bundle savedInstanceState) {
 
-        binding.fabNewChat.setOnClickListener(v->
-                NavHostFragment.findNavController(this).navigate(R.id.action_home_to_newChat));
+        // → Navigazione esistente verso “Nuova chat”
+        binding.fabNewChat.setOnClickListener(v ->
+                Navigation.findNavController(v).navigate(R.id.action_home_to_newChat));
+
+        // --- Animazioni ----------------------------------------------------
+        // Titolo: scende dall’alto con fade-in
+        binding.tvWelcome.setAlpha(0f);
+        binding.tvWelcome.setScaleX(0.8f);
+        binding.tvWelcome.setScaleY(0.8f);
+        binding.tvWelcome.animate()
+                .alpha(1f)
+                .scaleX(1f).scaleY(1f)
+                .translationY(0)
+                .setDuration(800)
+                .setInterpolator(new OvershootInterpolator())
+                .start();
+
+
+        // Sottotitolo: fade-in ritardato
+        binding.tvSubtitle.setAlpha(0f);
+        binding.tvSubtitle.animate()
+                .alpha(1f)
+                .setDuration(700)
+                .setStartDelay(500)
+                .start();
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
     }
 }
