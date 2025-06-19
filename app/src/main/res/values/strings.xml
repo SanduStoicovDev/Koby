@@ -50,4 +50,6 @@
     <string name="logout">Esci</string>
     <string name="chat_hint">Scrivi un messaggio...</string>
     <string name="send">Invia</string>
+    <string name="pick_pdf">seleziona PDF</string>
+    <string name="pdf_attached">Il pdf è stato allegato correttamente</string>
 </resources>
