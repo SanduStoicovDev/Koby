@@ -3,10 +3,19 @@
 
     <style name="CircleShape"
         parent="@style/ShapeAppearanceOverlay.Material3.Chip" />
-    <style name="Koby.DisplayHuge" parent="TextAppearance.Material3.DisplayLarge">
+
+    <style name="Koby.TitleTheme" parent="TextAppearance.Material3.TitleLarge">
         <item name="android:textSize">40sp</item>
-        <item name="android:textColor">@color/md_theme_onSurface</item>
         <item name="android:textStyle">bold</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:fontFamily">poppins_semibold</item>
+    </style>
+
+    <style name="Koby.SubtitleTheme" parent="TextAppearance.Material3.TitleMedium">
+        <item name="android:textSize">30sp</item>
+        <item name="android:textStyle">italic</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:fontFamily">@font/pinyon_script</item>
     </style>
 
 </resources>
