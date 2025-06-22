@@ -2,12 +2,10 @@ package com.unimib.koby.ui.login;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
@@ -32,8 +30,6 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.unimib.koby.R;
 import com.unimib.koby.model.Result;
 import com.unimib.koby.util.ServiceLocator;
-import androidx.fragment.app.Fragment;
-
 
 /** Concrete screen that gathers user credentials and delegates to the ViewModel. */
 public class LoginFragment extends Fragment {
@@ -85,7 +81,6 @@ public class LoginFragment extends Fragment {
         loginButton.animate().alpha(1f).setDuration(400).setStartDelay(base + 800);
         buttonGoogle.animate().alpha(1f).setDuration(400).setStartDelay(base + 1000);
         registerLink.animate().alpha(1f).setDuration(400).setStartDelay(base + 1200);
-
 
         // --- ViewModel ----------------------------------------------------------------------
         viewModel = new ViewModelProvider(
