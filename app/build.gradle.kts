@@ -108,6 +108,13 @@ dependencies {
 
     //Testing JUnit Espresso
     testImplementation(libs.junit)
+    testImplementation(libs.mockito.core)
+    testImplementation(libs.core.testing)
+    testImplementation(libs.robolectric)
+    // per mockare metodi statici (PDDocument.load)
+    testImplementation(libs.mockito.inline)
+    // LiveData synchronous executor
+    testImplementation(libs.core.testing)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
 
