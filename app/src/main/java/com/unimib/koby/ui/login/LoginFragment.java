@@ -18,6 +18,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -51,6 +52,18 @@ public class LoginFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        // --- ViewModel ----------------------------------------------------------------------
+        viewModel = new ViewModelProvider(
+                requireActivity(),
+                new UserViewModelFactory(ServiceLocator.getInstance().getUserRepository(requireActivity().getApplication()))
+        ).get(UserViewModel.class);
+
+        if (viewModel.getLoggedUser() != null) {
+            NavHostFragment.findNavController(this)
+                    .navigate(R.id.action_loginFragment_to_mainActivity);
+            return;  // evita di mostrare la UI di login
+        }
+
         // --- View binding (kept manual for brevity) -----------------------------------------
         View logo = view.findViewById(R.id.imageLogo);
         View welcome = view.findViewById(R.id.textWelcome);
@@ -82,11 +95,6 @@ public class LoginFragment extends Fragment {
         buttonGoogle.animate().alpha(1f).setDuration(400).setStartDelay(base + 1000);
         registerLink.animate().alpha(1f).setDuration(400).setStartDelay(base + 1200);
 
-        // --- ViewModel ----------------------------------------------------------------------
-        viewModel = new ViewModelProvider(
-                requireActivity(),
-                new UserViewModelFactory(ServiceLocator.getInstance().getUserRepository(requireActivity().getApplication()))
-        ).get(UserViewModel.class);
 
         // Observe loading state (could be used to show a ProgressBar)
         viewModel.getLoading().observe(getViewLifecycleOwner(), isLoading -> {
