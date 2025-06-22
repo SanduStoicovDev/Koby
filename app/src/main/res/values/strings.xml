@@ -55,4 +55,5 @@
     <string name="pdf_attached">Il pdf è stato allegato correttamente</string>
     <string name="title_chat_detail">Dettaglio Chat</string>
     <string name="home_subtitle">Per creare una nuova chat</string>
+    <string name="auth_error">Errore Autenticazione</string>
 </resources>
