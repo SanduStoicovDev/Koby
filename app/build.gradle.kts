@@ -81,6 +81,8 @@ dependencies {
     implementation(libs.firebase.firestore)
     implementation(libs.firebase.storage)
     implementation(libs.preference)
+    implementation(libs.fragment.testing)
+    implementation(libs.navigation.testing.android)
     coreLibraryDesugaring(libs.desugar.jdk.libs)
 
     // Retrofit & Converter GSON
@@ -109,10 +111,12 @@ dependencies {
     //Testing JUnit Espresso
     testImplementation(libs.junit)
     testImplementation(libs.mockito.core)
+    testImplementation(libs.mockito.inline)
     testImplementation(libs.core.testing)
     testImplementation(libs.robolectric)
-    // per mockare metodi statici (PDDocument.load)
-    testImplementation(libs.mockito.inline)
+    testImplementation(libs.mockwebserver)
+    testImplementation(libs.hamcrest)
+
     // LiveData synchronous executor
     testImplementation(libs.core.testing)
     androidTestImplementation(libs.ext.junit)

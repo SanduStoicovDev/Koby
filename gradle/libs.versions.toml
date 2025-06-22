@@ -14,6 +14,7 @@ firebaseFirestoreVersion = "25.0.0"
 fragmentKtx = "1.8.8"
 glide = "4.16.0"
 googleMaterial = "1.11.0"
+hamcrest = "2.2"
 junit = "4.13.2"
 junitVersion = "1.2.1"
 espressoCore = "3.6.1"
@@ -29,6 +30,7 @@ lifecycleViewmodelKtx = "2.8.7"
 materialVersion = "1.10.0"
 mockitoCore = "4.0.0"
 mockitoInline = "5.2.0"
+mockwebserver = "4.12.0"
 navigationFragment = "2.8.9"
 navigationFragmentKtx = "2.9.0"
 navigationUi = "2.8.9"
@@ -56,6 +58,8 @@ firebaseStorage = "21.0.2"
 tomRoushPdfboxAndroid = "2.0.27.0"
 transition = "1.6.0"
 preference = "1.2.1"
+fragmentTesting = "1.8.8"
+navigationTestingAndroid = "2.9.0"
 
 [libraries]
 activity-ktx = { module = "androidx.activity:activity-ktx", version.ref = "activityKtx" }
@@ -73,6 +77,7 @@ firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "fir
 firebase-firestore-v2500 = { module = "com.google.firebase:firebase-firestore", version.ref = "firebaseFirestoreVersion" }
 fragment-ktx = { module = "androidx.fragment:fragment-ktx", version.ref = "fragmentKtx" }
 glide = { module = "com.github.bumptech.glide:glide", version.ref = "glide" }
+hamcrest = { module = "org.hamcrest:hamcrest", version.ref = "hamcrest" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 ext-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
@@ -89,6 +94,7 @@ material-v1100 = { module = "com.google.android.material:material", version.ref 
 material-v1110 = { module = "com.google.android.material:material", version.ref = "googleMaterial" }
 mockito-core = { module = "org.mockito:mockito-core", version.ref = "mockitoCore" }
 mockito-inline = { module = "org.mockito:mockito-inline", version.ref = "mockitoInline" }
+mockwebserver = { module = "com.squareup.okhttp3:mockwebserver", version.ref = "mockwebserver" }
 navigation-fragment = { group = "androidx.navigation", name = "navigation-fragment", version.ref = "navigationFragment" }
 navigation-fragment-ktx = { module = "androidx.navigation:navigation-fragment-ktx", version.ref = "navigationFragmentKtx" }
 navigation-ui = { group = "androidx.navigation", name = "navigation-ui", version.ref = "navigationUi" }
@@ -116,6 +122,8 @@ firebase-storage = { group = "com.google.firebase", name = "firebase-storage", v
 tom-roush-pdfbox-android = { module = "com.tom-roush:pdfbox-android", version.ref = "tomRoushPdfboxAndroid" }
 transition = { module = "androidx.transition:transition", version.ref = "transition" }
 preference = { group = "androidx.preference", name = "preference", version.ref = "preference" }
+fragment-testing = { group = "androidx.fragment", name = "fragment-testing", version.ref = "fragmentTesting" }
+navigation-testing-android = { group = "androidx.navigation", name = "navigation-testing-android", version.ref = "navigationTestingAndroid" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
