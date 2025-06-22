@@ -1,11 +1,9 @@
 package com.unimib.koby.ui.profile;
 
 import android.Manifest;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,9 +25,7 @@ import com.google.android.material.materialswitch.MaterialSwitch;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.unimib.koby.R;
-import com.unimib.koby.model.Result;
-import com.unimib.koby.ui.login.UserViewModel;
-import com.unimib.koby.ui.login.UserViewModelFactory;
+import com.unimib.koby.data.repository.user.UserRepository;
 import com.unimib.koby.ui.settings.SettingsViewModel;
 import com.unimib.koby.ui.settings.SettingsViewModelFactory;
 import com.unimib.koby.util.ServiceLocator;
@@ -37,7 +33,7 @@ import com.unimib.koby.util.ServiceLocator;
 public class ProfileFragment extends Fragment {
 
     private ShapeableImageView avatar;
-    private UserViewModel userVM;
+    private ProfileViewModel profileVM;
 
     private ActivityResultLauncher<String> pickImage;
     private ActivityResultLauncher<String> permissionLauncher;
@@ -58,52 +54,38 @@ public class ProfileFragment extends Fragment {
 
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         if (currentUser != null) {
-            // Recupera e mostra nome
-            TextView nameView = v.findViewById(R.id.textName);
-            nameView.setText(currentUser.getDisplayName());
-
-            // Recupera e mostra email
-            TextView emailView = v.findViewById(R.id.textEmail);
-            emailView.setText(currentUser.getEmail());
-
-            // Recupera e mostra foto (se esiste)
-            Uri photoUrl = currentUser.getPhotoUrl();
-            if (photoUrl != null) {
-                Glide.with(this).load(photoUrl).circleCrop().into(avatar);
-            }
+            ((TextView) v.findViewById(R.id.textName)).setText(currentUser.getDisplayName());
+            ((TextView) v.findViewById(R.id.textEmail)).setText(currentUser.getEmail());
         }
 
-        // 1) registra pickImage prima, così la callback esiste già
-        pickImage = registerForActivityResult(new ActivityResultContracts.GetContent(), this::handleImage);
+        profileVM = new ViewModelProvider(
+                this,
+                new ProfileViewModelFactory((UserRepository) ServiceLocator.getInstance().getUserRepository(requireActivity().getApplication()))
+        ).get(ProfileViewModel.class);
 
-        // 2) registra permissionLauncher che usa pickImage
+        profileVM.getPhotoUrl().observe(getViewLifecycleOwner(), uri ->
+                Glide.with(this)
+                        .load(uri)
+                        .placeholder(R.drawable.ic_profile_placeholder)
+                        .circleCrop()
+                        .into(avatar)
+        );
+
+        // Switch lingua / tema
+        SettingsViewModel settingsVM = new ViewModelProvider(
+                this, new SettingsViewModelFactory(requireContext()))
+                .get(SettingsViewModel.class);
+        settingsVM.getEnglish().observe(getViewLifecycleOwner(), langSwitch::setChecked);
+        settingsVM.getDark().observe(getViewLifecycleOwner(), themeSwitch::setChecked);
+        langSwitch.setOnCheckedChangeListener((b, checked) -> settingsVM.toggleEnglish(checked));
+        themeSwitch.setOnCheckedChangeListener((b, checked) -> settingsVM.toggleDark(checked));
+
+        // Picker & permessi
+        pickImage = registerForActivityResult(new ActivityResultContracts.GetContent(), this::handleImage);
         permissionLauncher = registerForActivityResult(new ActivityResultContracts.RequestPermission(), granted -> {
             if (granted) pickImage.launch("image/*");
             else Toast.makeText(requireContext(), "Permesso negato", Toast.LENGTH_SHORT).show();
         });
-
-        userVM = new ViewModelProvider(requireActivity(),
-                new UserViewModelFactory(ServiceLocator.getInstance().getUserRepository(requireActivity().getApplication())))
-                .get(UserViewModel.class);
-
-        SettingsViewModel settingsVM = new ViewModelProvider(
-                this, new SettingsViewModelFactory(requireContext()))
-                .get(SettingsViewModel.class);
-
-        settingsVM.getEnglish().observe(getViewLifecycleOwner(), langSwitch::setChecked);
-        settingsVM.getDark().observe(getViewLifecycleOwner(), themeSwitch::setChecked);
-
-        langSwitch.setOnCheckedChangeListener((b, checked) ->
-                settingsVM.toggleEnglish(checked));
-
-        themeSwitch.setOnCheckedChangeListener((b, checked) ->
-                settingsVM.toggleDark(checked));
-
-        /* Placeholder: carica foto reale se disponibile */
-        Glide.with(this)
-                .load("https://placehold.co/128")
-                .circleCrop()
-                .into(avatar);
 
         avatar.setOnClickListener(vw -> {
             String perm = android.os.Build.VERSION.SDK_INT >= 33 ?
@@ -114,15 +96,16 @@ public class ProfileFragment extends Fragment {
             } else permissionLauncher.launch(perm);
         });
 
-        logoutBtn.setOnClickListener(vw -> userVM.logout().observe(getViewLifecycleOwner(), r -> {
-            if (r.isSuccess()) requireActivity().finish();
-            else Toast.makeText(requireContext(), ((Result.Error) r).getMessage(), Toast.LENGTH_LONG).show();
-        }));
+        logoutBtn.setOnClickListener(vw -> {
+            ServiceLocator.getInstance().getUserRepository(requireActivity().getApplication())
+                    .logout()
+                    .observe(getViewLifecycleOwner(), r -> requireActivity().finish());
+        });
     }
 
     private void handleImage(Uri uri) {
         if (uri == null) return;
-        Glide.with(this).load(uri).circleCrop().into(avatar);
-        // TODO: upload su Firebase Storage e aggiorna profilo
+        Glide.with(this).load(uri).circleCrop().into(avatar); // preview immediata
+        profileVM.uploadPhoto(uri);
     }
 }
