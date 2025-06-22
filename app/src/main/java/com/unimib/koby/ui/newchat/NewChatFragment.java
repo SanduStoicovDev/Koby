@@ -26,6 +26,7 @@ import com.unimib.koby.model.Result;
 
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Objects;
 
 /**
  * Fragment UI per la chat in stile ChatGPT.
@@ -113,7 +114,7 @@ public class NewChatFragment extends Fragment {
 
         // ---------------- Send button ----------------
         binding.btnSend.setOnClickListener(v -> {
-            String text = binding.editMessage.getText().toString().trim();
+            String text = Objects.requireNonNull(binding.editMessage.getText()).toString().trim();
             if (text.isEmpty()) return;
             binding.editMessage.setText("");
             vm.send(text);
