@@ -2,6 +2,8 @@ package com.unimib.koby.model;
 
 import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.DocumentId;
+
+import java.sql.Time;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -18,6 +20,12 @@ public class Chat {
         this.title       = title;
         this.lastMessage = lastMessage;
         this.createdAt   = Timestamp.now();
+    }
+
+    public Chat(String title, String nuovaChat, Timestamp createdAt) {
+        this.title = title;
+        this.lastMessage = nuovaChat;
+        this.createdAt = createdAt;
     }
 
     public String getId() {

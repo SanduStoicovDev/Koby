@@ -36,6 +36,12 @@ public class ChatMessage {
         this.createdAt = Timestamp.now();     // valore provvisorio
     }
 
+    public ChatMessage(String role, String content, String uid, Timestamp now) {
+        this.role = role;
+        this.content = content;
+        this.createdAt = now;
+    }
+
     /* ------------  getter / setter  ------------ */
 
     public String getId() { return id; }
