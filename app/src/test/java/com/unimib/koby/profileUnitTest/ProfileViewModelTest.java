@@ -1,6 +1,6 @@
 package com.unimib.koby.profileUnitTest;
 
-import static org.junit.Assert.*;
+import static com.google.common.truth.Truth.assertThat;
 import static org.mockito.Mockito.*;
 
 import android.net.Uri;
@@ -15,62 +15,109 @@ import com.unimib.koby.ui.profile.ProfileViewModel;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.robolectric.RobolectricTestRunner;
+import org.robolectric.annotation.Config;
 
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
+
+/**
+ * Unit-test JVM per ProfileViewModel.
+ */
+@RunWith(RobolectricTestRunner.class)
+@Config(sdk = 33, manifest = Config.NONE)
 public class ProfileViewModelTest {
 
-    @Rule
-    public InstantTaskExecutorRule rule = new InstantTaskExecutorRule(); // esegue LiveData in modo sincrono
+    @Rule public InstantTaskExecutorRule rule = new InstantTaskExecutorRule();
 
-    private UserRepository mockRepo;
-    private ProfileViewModel viewModel;
+    private UserRepository repo;
+    private ProfileViewModel vm;
 
     @Before
     public void setUp() {
-        mockRepo = mock(UserRepository.class);
+        repo = mock(UserRepository.class);
     }
 
+    /* ---------- TEST 1: caricamento iniziale ---------- */
     @Test
-    public void loadProfilePicture_setsInitialPhotoUrl() {
-        // Mock uri e LiveData di ritorno
-        Uri fakeUri = Uri.parse("https://example.com/photo.jpg");
-        MutableLiveData<Uri> live = new MutableLiveData<>();
-        live.setValue(fakeUri);
+    public void loadProfilePicture_emitsInitialUri() throws Exception {
+        Uri remote = Uri.parse("https://example.com/photo.jpg");
+        MutableLiveData<Uri> live = new MutableLiveData<>(remote);
 
-        when(mockRepo.loadProfilePicture()).thenReturn(live);
+        when(repo.loadProfilePicture()).thenReturn(live);
 
-        viewModel = new ProfileViewModel(mockRepo);
-        assertEquals(fakeUri, viewModel.getPhotoUrl().getValue());
+        vm = new ProfileViewModel(repo);
+
+        assertThat(getOrAwait(vm.getPhotoUrl())).isEqualTo(remote);
     }
 
+    /* ---------- TEST 2: upload con successo ---------- */
     @Test
-    public void uploadPhoto_updatesPhotoUrlOnSuccess() {
-        Uri inputUri = Uri.parse("file://temp.jpg");
-        Uri uploadedUri = Uri.parse("https://cdn.koby.it/image.jpg");
+    public void uploadPhoto_success_updatesPhotoUrl() throws Exception {
+        when(repo.loadProfilePicture()).thenReturn(new MutableLiveData<>());
 
-        MutableLiveData<Result> resultLiveData = new MutableLiveData<>();
-        resultLiveData.setValue(new Result.Success<>(uploadedUri));
+        Uri local    = Uri.parse("file://tmp.jpg");
+        Uri uploaded = Uri.parse("https://cdn.koby.it/img.jpg");
 
-        when(mockRepo.loadProfilePicture()).thenReturn(new MutableLiveData<>()); // evita null
-        when(mockRepo.uploadProfilePicture(inputUri)).thenReturn(resultLiveData);
+        MutableLiveData<Result> uploadLive = new MutableLiveData<>();
+        when(repo.uploadProfilePicture(local)).thenReturn(uploadLive);
 
-        viewModel = new ProfileViewModel(mockRepo);
-        viewModel.uploadPhoto(inputUri);
+        vm = new ProfileViewModel(repo);
+        vm.uploadPhoto(local);
 
-        assertEquals(uploadedUri, viewModel.getPhotoUrl().getValue());
+        // emula la risposta del repository DOPO la chiamata
+        uploadLive.postValue(new Result.Success<>(uploaded));
+
+        assertThat(getOrAwait(vm.getPhotoUrl())).isEqualTo(uploaded);
     }
 
+    /* ---------- TEST 3: upload con errore ---------- */
     @Test
-    public void uploadPhoto_doesNotUpdatePhotoUrlOnFailure() {
-        Uri inputUri = Uri.parse("file://temp.jpg");
-        MutableLiveData<Result> resultLiveData = new MutableLiveData<>();
-        resultLiveData.setValue(new Result.Error("Errore"));
+    public void uploadPhoto_error_keepsPhotoUrlUnchanged() throws Exception {
+        // 1. lo stato iniziale (es. foto già salvata sul server)
+        Uri remoteUri = Uri.parse("https://example.com/old.jpg");
+        MutableLiveData<Uri> initialLive = new MutableLiveData<>(remoteUri);
+        when(repo.loadProfilePicture()).thenReturn(initialLive);
 
-        when(mockRepo.loadProfilePicture()).thenReturn(new MutableLiveData<>());
-        when(mockRepo.uploadProfilePicture(inputUri)).thenReturn(resultLiveData);
+        // 2. stub dell'upload che produrrà un errore
+        Uri local = Uri.parse("file://tmp.jpg");
+        MutableLiveData<Result> uploadLive = new MutableLiveData<>();
+        when(repo.uploadProfilePicture(local)).thenReturn(uploadLive);
 
-        viewModel = new ProfileViewModel(mockRepo);
-        viewModel.uploadPhoto(inputUri);
+        // 3. crea il ViewModel
+        vm = new ProfileViewModel(repo);
 
-        assertNull(viewModel.getPhotoUrl().getValue()); // Non aggiorna in caso di errore
+        // 3a. valore “prima” dell’upload
+        Uri before = getOrAwait(vm.getPhotoUrl());
+        assertThat(before).isEqualTo(remoteUri);
+
+        // 4. avvia upload e poi pubblica l'errore
+        vm.uploadPhoto(local);
+        uploadLive.postValue(new Result.Error("KO"));
+
+        // 5. verifica che il LiveData NON sia cambiato
+        Uri after = getOrAwait(vm.getPhotoUrl());
+        assertThat(after).isEqualTo(before);      // invariato
+    }
+
+    /* ---------- helper LiveData sincrono ---------- */
+    private static <T> T getOrAwait(final androidx.lifecycle.LiveData<T> live)
+            throws InterruptedException, TimeoutException {
+
+        final Object[] data = new Object[1];
+        CountDownLatch latch = new CountDownLatch(1);
+
+        live.observeForever(v -> {
+            data[0] = v;
+            latch.countDown();
+        });
+
+        if (!latch.await(2, TimeUnit.SECONDS)) {
+            throw new TimeoutException("Valore LiveData non ricevuto.");
+        }
+        //noinspection unchecked
+        return (T) data[0];
     }
 }

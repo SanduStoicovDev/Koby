@@ -1,13 +1,9 @@
 package com.unimib.koby.settingsUnitTest;
 
-import static com.google.common.truth.Truth.assertThat;
-
-import static org.hamcrest.MatcherAssert.assertThat;
-
 import android.content.Context;
 import androidx.test.core.app.ApplicationProvider;
-
 import com.unimib.koby.ui.settings.SettingsManager;
+import static com.google.common.truth.Truth.assertThat;
 
 import org.junit.After;
 import org.junit.Test;
