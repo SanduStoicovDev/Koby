@@ -8,8 +8,9 @@ import androidx.lifecycle.ViewModelProvider;
 public class SettingsViewModelFactory implements ViewModelProvider.Factory {
     private final Context ctx;
     public SettingsViewModelFactory(Context ctx) { this.ctx = ctx; }
-    @NonNull @Override
+    @NonNull @Override @SuppressWarnings("unchecked")
     public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
         return (T) new SettingsViewModel(SettingsManager.getInstance(ctx));
     }
 }
+
