@@ -21,6 +21,22 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"/>
 
+        <!--Lottie di caricamento – overlay centrato-->
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/lottieLoading"
+            android:layout_width="160dp"
+            android:layout_height="160dp"
+            android:visibility="gone"
+            app:lottie_rawRes="@raw/load_animation"
+            app:lottie_loop="true"
+            app:lottie_autoPlay="false"
+            app:lottie_ignoreDisabledSystemAnimations="true"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+
         <!-- Scrim per garantire contrasto sugli elementi sovrastanti -->
         <View
             android:id="@+id/scrim"
