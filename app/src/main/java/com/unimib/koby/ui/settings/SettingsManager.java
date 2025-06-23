@@ -9,7 +9,7 @@ import androidx.preference.PreferenceManager;
  */
 public class SettingsManager {
 
-    private static final String KEY_DARK   = "pref_dark_theme";
+    private static final String KEY_THEME   = "pref_dark_theme";
     private static final String KEY_LANG   = "pref_lang_en"; // true = EN, false = IT
 
     private static SettingsManager instance;
@@ -24,8 +24,8 @@ public class SettingsManager {
         return instance;
     }
 
-    public boolean isDarkTheme() { return prefs.getBoolean(KEY_DARK, false); }
-    public void setDarkTheme(boolean dark) { prefs.edit().putBoolean(KEY_DARK, dark).apply(); }
+    public boolean isDarkTheme() { return prefs.getBoolean(KEY_THEME, false); }
+    public void setDarkTheme(boolean dark) { prefs.edit().putBoolean(KEY_THEME, dark).apply(); }
 
     public boolean isEnglish() { return prefs.getBoolean(KEY_LANG, false); }
     public void setEnglish(boolean en) { prefs.edit().putBoolean(KEY_LANG, en).apply(); }
