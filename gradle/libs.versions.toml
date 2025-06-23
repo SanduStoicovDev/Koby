@@ -6,8 +6,10 @@ cardview = "1.0.0"
 commonsValidator = "1.7"
 compiler = "4.16.0"
 converterGson = "2.9.0"
+coreKtx = "1.16.0"
 coreTesting = "2.2.0"
 desugar_jdk_libs = "2.1.5"
+espressoCoreVersion = "3.5.1"
 firebaseAuthVersion = "23.0.0"
 firebaseBom = "33.12.0"
 firebaseFirestoreVersion = "25.0.0"
@@ -51,6 +53,7 @@ playServicesLocation = "21.3.0"
 recyclerview = "1.4.0"
 retrofit = "2.11.0"
 robolectric = "4.11.1"
+robolectricVersion = "4.13.2"
 roomCompiler = "2.7.1"
 roomRuntime = "2.7.1"
 securityCrypto = "1.0.0"
@@ -63,6 +66,7 @@ preference = "1.2.1"
 fragmentTesting = "1.8.8"
 navigationTestingAndroid = "2.9.0"
 truth = "1.4.4"
+runtime = "1.0.0-alpha04"
 
 [libraries]
 activity-ktx = { module = "androidx.activity:activity-ktx", version.ref = "activityKtx" }
@@ -71,8 +75,10 @@ cardview = { module = "androidx.cardview:cardview", version.ref = "cardview" }
 commons-validator = { module = "commons-validator:commons-validator", version.ref = "commonsValidator" }
 compiler = { module = "com.github.bumptech.glide:compiler", version.ref = "compiler" }
 converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "converterGson" }
+core-ktx = { module = "androidx.core:core-ktx", version.ref = "coreKtx" }
 core-testing = { module = "androidx.arch.core:core-testing", version.ref = "coreTesting" }
 desugar_jdk_libs = { module = "com.android.tools:desugar_jdk_libs", version.ref = "desugar_jdk_libs" }
+espresso-core-v351 = { module = "androidx.test.espresso:espresso-core", version.ref = "espressoCoreVersion" }
 firebase-analytics = { module = "com.google.firebase:firebase-analytics" }
 firebase-auth = { module = "com.google.firebase:firebase-auth" }
 firebase-auth-v2300 = { module = "com.google.firebase:firebase-auth", version.ref = "firebaseAuthVersion" }
@@ -117,6 +123,7 @@ play-services-location = { module = "com.google.android.gms:play-services-locati
 recyclerview = { module = "androidx.recyclerview:recyclerview", version.ref = "recyclerview" }
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
 robolectric = { module = "org.robolectric:robolectric", version.ref = "robolectric" }
+robolectric-v4132 = { module = "org.robolectric:robolectric", version.ref = "robolectricVersion" }
 room-compiler = { module = "androidx.room:room-compiler", version.ref = "roomCompiler" }
 room-runtime = { module = "androidx.room:room-runtime", version.ref = "roomRuntime" }
 security-crypto = { group = "androidx.security", name = "security-crypto", version.ref = "securityCrypto" }
@@ -130,6 +137,7 @@ preference = { group = "androidx.preference", name = "preference", version.ref =
 fragment-testing = { group = "androidx.fragment", name = "fragment-testing", version.ref = "fragmentTesting" }
 navigation-testing-android = { group = "androidx.navigation", name = "navigation-testing-android", version.ref = "navigationTestingAndroid" }
 truth = { module = "com.google.truth:truth", version.ref = "truth" }
+runtime = { group = "androidx.xr.runtime", name = "runtime", version.ref = "runtime" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
