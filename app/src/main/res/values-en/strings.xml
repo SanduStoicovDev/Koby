@@ -49,4 +49,12 @@
     <string name="label_language">Change Language</string>
     <string name="label_theme">Dark Theme</string>
     <string name="logout">Logout</string>
+    <string name="chat_hint">Write a message...</string>
+    <string name="send">Send</string>
+    <string name="pick_pdf">Select PDF</string>
+    <string name="pdf_attached">PDF was successfully attacched</string>
+    <string name="title_chat_detail">Chat Detail</string>
+    <string name="home_subtitle">Tap for create a new chat</string>
+    <string name="auth_error">Authentication Error</string>
+    <string name="error_confirm">Error confirm Password</string>
 </resources>

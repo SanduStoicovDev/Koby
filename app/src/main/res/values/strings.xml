@@ -5,7 +5,7 @@
     <string name="title_notifications">Notifications</string>
     <string name="app_logo">logo</string>
     <string name="benvenuto">Benvenuto in Koby</string>
-    <string name="slogan">Your best Study Buddy</string>
+    <string name="slogan" translatable="false">Your best Study Buddy</string>
     <string name="hintEmail">Indirizzo Email</string>
     <string name="hintPassword">Password</string>
     <string name="loginButton">Accedi</string>
