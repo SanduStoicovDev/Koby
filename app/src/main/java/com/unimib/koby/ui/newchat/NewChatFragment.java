@@ -112,6 +112,17 @@ public class NewChatFragment extends Fragment {
             pdfPicker.launch(Intent.createChooser(intent, "Seleziona PDF"));
         });
 
+        //Gestione Lottie Loading Animation
+        vm.getLoading().observe(getViewLifecycleOwner(), isLoading -> {
+            binding.lottieLoading.setVisibility(isLoading ? View.VISIBLE : View.GONE);
+            binding.btnSend.setEnabled(!isLoading);
+            if (isLoading) {
+                binding.lottieLoading.playAnimation();
+            } else {
+                binding.lottieLoading.cancelAnimation();
+            }
+        });
+
         // ---------------- Send button ----------------
         binding.btnSend.setOnClickListener(v -> {
             String text = Objects.requireNonNull(binding.editMessage.getText()).toString().trim();
