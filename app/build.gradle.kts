@@ -9,6 +9,10 @@ android {
     namespace = "com.unimib.koby"
     compileSdk = 35
 
+    testOptions {
+        unitTests.isIncludeAndroidResources = true
+    }
+
     defaultConfig {
         applicationId = "com.unimib.koby"
         minSdk = 28
@@ -83,6 +87,7 @@ dependencies {
     implementation(libs.preference)
     implementation(libs.fragment.testing)
     implementation(libs.navigation.testing.android)
+    implementation(libs.runtime)
     coreLibraryDesugaring(libs.desugar.jdk.libs)
 
     // Retrofit & Converter GSON
@@ -108,25 +113,22 @@ dependencies {
     implementation(libs.glide)
     annotationProcessor(libs.compiler)
 
-    //Testing JUnit Espresso
+    /* --- dipendenze di produzione --- */
+    implementation(libs.core.ktx)
+
+    /* ---------- UNIT TEST ---------- */
     testImplementation(libs.junit)
-    //testImplementation(libs.mockito.core)
-    //testImplementation(libs.mockito.inline)
-    testImplementation(libs.core.testing)
+    testImplementation(libs.mockito.core.v5110)
+    testImplementation("com.google.truth:truth:1.4.4")
     testImplementation(libs.robolectric)
+    testImplementation(libs.core.testing)
     testImplementation(libs.mockwebserver)
     testImplementation(libs.hamcrest)
-    testImplementation(libs.truth)
-    androidTestImplementation(libs.truth)
 
-    // Test JVM (Robolectric)
-    testImplementation(libs.mockito.core.v5110) // o versione ≥5 più recente
-    // Se fai anche instrumented test con Mockito:
+    /* ---------- INSTRUMENTED TEST ---------- */
+    androidTestImplementation(libs.espresso.core.v351)
     androidTestImplementation(libs.mockito.android)
-
-    // LiveData synchronous executor
-    testImplementation(libs.core.testing)
     androidTestImplementation(libs.ext.junit)
-    androidTestImplementation(libs.espresso.core)
+    androidTestImplementation(libs.truth)
 
 }
