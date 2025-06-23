@@ -26,10 +26,10 @@ Il progetto nasce come *capstone* di tirocinio universitario presso l’Universi
 | Account Utente   | Registrazione / login via **Email + Password** o **Google Sign‑In** con **Firebase Auth**.  |
 | Chat Sync        | Cronologia, messaggi e allegati salvati in **Cloud Firestore** con aggiornamenti real‑time. |
 | PDF Insights     | Estrazione testo da PDF via **PDFBox** e prompt “Riassumi / Spiega”.                        |
-| Multimedia       | **Speech‑to‑Text** & **Text‑to‑Speech** integrati.                                          |
+| Multimedia       | **Speech‑to‑Text** & **Text‑to‑Speech** integrati. (Still Developing)                                         |
 | UI Adaptive      | Material 3, *Dark / Light Theme* e layout responsive (phone, tablet, foldable).             |
 | Privacy & Safety | Chiavi API cifrate, regole Firestore restrittive, traffico HTTPS.                           |
-| Offline Support  | Cache Room dei messaggi e *retry queue* per operazioni inevase.                             |
+| Offline Support  | Cache Room dei messaggi e *retry queue* per operazioni inevase. (Still Developing)                           |
 
 ---
 
