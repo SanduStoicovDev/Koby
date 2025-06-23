@@ -2,8 +2,6 @@ package com.unimib.koby.model;
 
 import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.DocumentId;
-
-import java.sql.Time;
 import java.util.HashMap;
 import java.util.Map;
 

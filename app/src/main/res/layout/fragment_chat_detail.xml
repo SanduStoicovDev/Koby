@@ -62,7 +62,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
-        <!-- Barra di input uguale a NewChat (opzionale, pronta per invio messaggi futuri) -->
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/messageBar"
             style="@style/Widget.Material3.CardView.Filled"

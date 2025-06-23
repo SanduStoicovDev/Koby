@@ -3,7 +3,6 @@ package com.unimib.koby.model;
 import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.DocumentId;
 import com.google.firebase.firestore.ServerTimestamp;
-
 import java.util.Objects;
 
 /**
@@ -33,7 +32,7 @@ public class ChatMessage {
     public ChatMessage(String role, String content) {
         this.role = role;
         this.content = content;
-        this.createdAt = Timestamp.now();     // valore provvisorio
+        this.createdAt = Timestamp.now();
     }
 
     public ChatMessage(String role, String content, String uid, Timestamp now) {
