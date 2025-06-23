@@ -69,14 +69,13 @@ dependencies {
     implementation(libs.navigation.fragment)
     implementation(libs.navigation.ui)
 
-
     implementation(libs.firebase.firestore.v2500)
     implementation(libs.firebase.auth.v2300)
 
     //Firebase
-    implementation(platform("com.google.firebase:firebase-bom:33.14.0"))
-    implementation("com.google.firebase:firebase-firestore")
-    implementation("com.firebaseui:firebase-ui-firestore:9.0.0")
+    implementation(libs.firebase.bom.v33140)
+    implementation(libs.google.firebase.firestore)
+    implementation(libs.firebase.ui.firestore)
     implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.database)
     implementation(libs.google.firebase.auth)
@@ -109,7 +108,6 @@ dependencies {
 
     // Picasso Image & PDF Parser
     implementation (libs.picasso)
-    implementation("com.tom-roush:pdfbox-android:2.0.27.0")
     implementation(libs.glide)
     annotationProcessor(libs.compiler)
 
@@ -119,7 +117,7 @@ dependencies {
     /* ---------- UNIT TEST ---------- */
     testImplementation(libs.junit)
     testImplementation(libs.mockito.core.v5110)
-    testImplementation("com.google.truth:truth:1.4.4")
+    testImplementation(libs.truth)
     testImplementation(libs.robolectric)
     testImplementation(libs.core.testing)
     testImplementation(libs.mockwebserver)
