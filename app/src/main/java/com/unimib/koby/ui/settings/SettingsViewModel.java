@@ -25,7 +25,7 @@ public class SettingsViewModel extends ViewModel {
         mgr.setDarkTheme(dark);
         darkLive.setValue(dark);
         AppCompatDelegate.setDefaultNightMode(dark ?
-                AppCompatDelegate.MODE_NIGHT_YES :
+                AppCompatDelegate.MODE_NIGHT_YES : //Non funziona piu correttamente è in BETA
                 AppCompatDelegate.MODE_NIGHT_NO);
     }
 
