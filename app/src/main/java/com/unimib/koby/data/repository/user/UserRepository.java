@@ -10,6 +10,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.storage.StorageException;
 import com.unimib.koby.R;
 import com.unimib.koby.data.source.user.BaseUserAuthenticationRemoteDataSource;
 import com.unimib.koby.data.source.user.BaseUserDataRemoteDataSource;
@@ -142,7 +143,8 @@ public class UserRepository implements IUserRepository {
     }
 
     /**
-     * Ritorna un LiveData con la DownloadUrl della foto profilo (anche se null).
+     * Ritorna un LiveData con la DownloadUrl della foto profilo o null se l'utente non ne ha una.
+     * Gestisce esplicitamente il caso in cui l'oggetto non esista su Firebase Storage per evitare il crash.
      */
     public MutableLiveData<Uri> loadProfilePicture() {
         MutableLiveData<Uri> live = new MutableLiveData<>();
@@ -152,12 +154,28 @@ public class UserRepository implements IUserRepository {
             return live;
         }
 
+        // 1) Usa la photoUrl già presente in FirebaseAuth, se disponibile
         if (fUser.getPhotoUrl() != null) {
             live.setValue(fUser.getPhotoUrl());
-        } else {
-            userRemote.fetchProfileImageUrl(fUser.getUid())
-                    .addOnCompleteListener(t -> live.setValue(t.getResult()));
+            return live;
         }
+
+        // 2) Altrimenti prova a recuperarla dallo Storage, gestendo il caso in cui il file non esista
+        userRemote.fetchProfileImageUrl(fUser.getUid())
+                .addOnSuccessListener(live::setValue) // immagine trovata
+                .addOnFailureListener(e -> {
+                    if (e instanceof StorageException) {
+                        int code = ((StorageException) e).getErrorCode();
+                        if (code == StorageException.ERROR_OBJECT_NOT_FOUND) {
+                            // L'utente non ha ancora caricato una foto: nessun problema, torniamo null
+                            live.setValue(null);
+                            return;
+                        }
+                    }
+                    // Per altri errori: loggare e restituire comunque null per non bloccare l'app
+                    live.setValue(null);
+                });
+
         return live;
     }
 }
