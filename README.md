@@ -103,7 +103,7 @@ cd koby
 
 2. **Secrets**
 
-- Inserisci `OPENAI_API_KEY` in `local.properties`
+- Inserisci `openAiKey` in `gradle.properties`
 - Aggiungi `google-services.json` (Firebase) in `app/`
 
 3. **Build & Run**
