@@ -19,7 +19,6 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.bumptech.glide.Glide;
-import com.google.android.material.button.MaterialButton;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.google.android.material.materialswitch.MaterialSwitch;
 import com.google.firebase.auth.FirebaseAuth;
@@ -48,9 +47,9 @@ public class ProfileFragment extends Fragment {
     public void onViewCreated(@NonNull View v, @Nullable Bundle s) {
         super.onViewCreated(v, s);
         avatar = v.findViewById(R.id.imageAvatar);
-        MaterialButton logoutBtn = v.findViewById(R.id.buttonLogout);
-        MaterialSwitch langSwitch = v.findViewById(R.id.switchLanguage);
+        MaterialSwitch langSwitch  = v.findViewById(R.id.switchLanguage);
         MaterialSwitch themeSwitch = v.findViewById(R.id.switchTheme);
+        View logoutBtn   = v.findViewById(R.id.buttonLogout);
 
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         if (currentUser != null) {
@@ -60,19 +59,21 @@ public class ProfileFragment extends Fragment {
 
         profileVM = new ViewModelProvider(
                 this,
-                new ProfileViewModelFactory((UserRepository) ServiceLocator.getInstance().getUserRepository(requireActivity().getApplication()))
+                new ProfileViewModelFactory((UserRepository) ServiceLocator.getInstance()
+                        .getUserRepository(requireActivity().getApplication()))
         ).get(ProfileViewModel.class);
 
-        profileVM.getPhotoUrl().observe(getViewLifecycleOwner(), uri ->
-                Glide.with(this)
-                        .load(uri)
-                        .placeholder(R.drawable.ic_profile_placeholder)
-                        .circleCrop()
-                        .into(avatar)
-        );
+        // 🔄  Carica/aggiorna l’immagine del profilo in modo sicuro (placeholder se assente)
+        profileVM.getPhotoUrl().observe(getViewLifecycleOwner(), uri -> {
+            Object source = uri != null ? uri : R.drawable.ic_profile_placeholder;
+            Glide.with(this)
+                    .load(source)
+                    .placeholder(R.drawable.ic_profile_placeholder)
+                    .circleCrop()
+                    .into(avatar);
+        });
 
         // Switch lingua / tema
-
         SettingsViewModel settingsVM = new ViewModelProvider(
                 this, new SettingsViewModelFactory(requireContext()))
                 .get(SettingsViewModel.class);
