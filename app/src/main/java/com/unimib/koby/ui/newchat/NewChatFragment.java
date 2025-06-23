@@ -115,7 +115,10 @@ public class NewChatFragment extends Fragment {
         // ---------------- Send button ----------------
         binding.btnSend.setOnClickListener(v -> {
             String text = Objects.requireNonNull(binding.editMessage.getText()).toString().trim();
-            if (text.isEmpty()) return;
+            if (text.isEmpty()) {
+                Toast.makeText(requireContext(), "Inserisci un messaggio prima di inviare", Toast.LENGTH_SHORT).show();
+                return;
+            }
             binding.editMessage.setText("");
             vm.send(text);
         });
