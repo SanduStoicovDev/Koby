@@ -47,7 +47,7 @@
     <string name="title_profile">Profilo</string>
     <string name="profile_picture">Foto profilo</string>
     <string name="label_language">Cambio lingua</string>
-    <string name="label_theme">Tema scuro</string>
+    <string name="label_theme">Tema scuro (in Beta)</string>
     <string name="logout">Esci</string>
     <string name="chat_hint">Scrivi un messaggio...</string>
     <string name="send">Invia</string>

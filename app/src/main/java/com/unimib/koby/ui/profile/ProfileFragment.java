@@ -72,6 +72,7 @@ public class ProfileFragment extends Fragment {
         );
 
         // Switch lingua / tema
+
         SettingsViewModel settingsVM = new ViewModelProvider(
                 this, new SettingsViewModelFactory(requireContext()))
                 .get(SettingsViewModel.class);

@@ -9,8 +9,8 @@ import androidx.preference.PreferenceManager;
  */
 public class SettingsManager {
 
-    private static final String KEY_THEME   = "pref_dark_theme";
-    private static final String KEY_LANG   = "pref_lang_en"; // true = EN, false = IT
+    private static final String KEY_THEME   = "pref_theme"; // true = Dark, false = White
+    private static final String KEY_LANG   = "pref_lang"; // true = EN, false = IT
 
     private static SettingsManager instance;
     private final SharedPreferences prefs;

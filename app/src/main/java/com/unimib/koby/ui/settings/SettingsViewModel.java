@@ -14,8 +14,8 @@ public class SettingsViewModel extends ViewModel {
 
     public SettingsViewModel(SettingsManager mgr) {
         this.mgr = mgr;
-        darkLive.setValue(mgr.isDarkTheme());
-        enLive.setValue(mgr.isEnglish());
+        darkLive.setValue(false);
+        enLive.setValue(false);
     }
 
     public LiveData<Boolean> getDark() { return darkLive; }
