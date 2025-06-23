@@ -45,7 +45,7 @@ public class ChatRepository {
         MutableLiveData<List<ChatMessage>> live = new MutableLiveData<>();
         chatColl.document(chatId)
                 .collection("messages")
-                .orderBy("timestamp", Query.Direction.ASCENDING)
+                .orderBy("timestamp", Query.Direction.DESCENDING)
                 .addSnapshotListener((snap, e) -> {
                     if (e != null || snap == null) return;
                     List<ChatMessage> list = new ArrayList<>();
