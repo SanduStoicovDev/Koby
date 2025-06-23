@@ -110,12 +110,19 @@ dependencies {
 
     //Testing JUnit Espresso
     testImplementation(libs.junit)
-    testImplementation(libs.mockito.core)
-    testImplementation(libs.mockito.inline)
+    //testImplementation(libs.mockito.core)
+    //testImplementation(libs.mockito.inline)
     testImplementation(libs.core.testing)
     testImplementation(libs.robolectric)
     testImplementation(libs.mockwebserver)
     testImplementation(libs.hamcrest)
+    testImplementation(libs.truth)
+    androidTestImplementation(libs.truth)
+
+    // Test JVM (Robolectric)
+    testImplementation(libs.mockito.core.v5110) // o versione ≥5 più recente
+    // Se fai anche instrumented test con Mockito:
+    androidTestImplementation(libs.mockito.android)
 
     // LiveData synchronous executor
     testImplementation(libs.core.testing)
